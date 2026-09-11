@@ -3,75 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NutriPlan - Régimes</title>
+  <title>NutriPlan - Plans diététiques</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="conteneur">
-    <h2>Plans diététiques</h2>
+    <h2 class="titre">Plans diététiques</h2>
 
-    <div class="liste-regimes">
-      
-      <!-- 🩸 Adapté au diabète -->
-      <div class="carte-regime" onclick="ouvrirLePlanDetail('diabete')">
-        <span class="icone">🩸</span>
-        <div class="contenu">
-          <h3>Adapté au diabète</h3>
-          <p>30 jours — faible en sucre, riche en fibres</p>
-        </div>
-        <span class="fleche">›</span>
+    <div class="carte-regime" data-plan="diabete">
+      <span class="icone">🩸</span>
+      <div class="texte">
+        <h3>Adapté au diabète</h3>
+        <p>30 jours — faible en sucre, riche en fibres</p>
       </div>
+      <span class="fleche">›</span>
+    </div>
 
-      <!-- ❤️ Santé cardiaque -->
-      <div class="carte-regime" onclick="ouvrirLePlanDetail('sante-cardiaque')">
-        <span class="icone">❤️</span>
-        <div class="contenu">
-          <h3>Santé cardiaque</h3>
-          <p>30 jours — légers, légumes, peu d'huile</p>
-        </div>
-        <span class="fleche">›</span>
+    <div class="carte-regime" data-plan="sante-cardiaque">
+      <span class="icone">❤️</span>
+      <div class="texte">
+        <h3>Santé cardiaque</h3>
+        <p>30 jours — légers, légumes, peu d'huile</p>
       </div>
+      <span class="fleche">›</span>
+    </div>
 
-      <!-- ⚖️ Perte de poids -->
-      <div class="carte-regime" onclick="ouvrirLePlanDetail('perte-de-poids')">
-        <span class="icone">⚖️</span>
-        <div class="contenu">
-          <h3>Perte de poids</h3>
-          <p>30 jours — portions contrôlées</p>
-        </div>
-        <span class="fleche">›</span>
+    <div class="carte-regime" data-plan="perte-de-poids">
+      <span class="icone">⚖️</span>
+      <div class="texte">
+        <h3>Perte de poids</h3>
+        <p>30 jours — portions contrôlées</p>
       </div>
+      <span class="fleche">›</span>
+    </div>
 
-      <!-- 📈 Prise de poids -->
-      <div class="carte-regime" onclick="ouvrirLePlanDetail('prise-de-poids')">
-        <span class="icone">📈</span>
-        <div class="contenu">
-          <h3>Prise de poids</h3>
-          <p>30 jours — repas énergétiques</p>
-        </div>
-        <span class="fleche">›</span>
+    <div class="carte-regime" data-plan="prise-de-poids">
+      <span class="icone">📈</span>
+      <div class="texte">
+        <h3>Prise de poids</h3>
+        <p>30 jours — repas énergétiques</p>
       </div>
+      <span class="fleche">›</span>
+    </div>
 
-      <!-- 💪 Renforcement musculaire -->
-      <div class="carte-regime" onclick="ouvrirLePlanDetail('musculation')">
-        <span class="icone">💪</span>
-        <div class="contenu">
-          <h3>Renforcement musculaire</h3>
-          <p>30 jours — riche en protéines</p>
-        </div>
-        <span class="fleche">›</span>
+    <div class="carte-regime" data-plan="musculation">
+      <span class="icone">💪</span>
+      <div class="texte">
+        <h3>Renforcement musculaire</h3>
+        <p>30 jours — riche en protéines</p>
       </div>
-
+      <span class="fleche">›</span>
     </div>
   </div>
 
-  <script>
-    // ✅ Fonction qui ouvre la page du régime
-    function ouvrirLePlanDetail(nomDuPlan) {
-      window.location.href = `/regimes/${nomDuPlan}`;
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,49 +1,21 @@
-// ✅ Fonction à placer au-dessus de la liste des cartes
-const ouvrirLePlanDetail = (nomDuPlan) => {
-  window.location.href = `/regimes/${nomDuPlan}`;
-};
+// Attend que la page soit complètement chargée
+document.addEventListener('DOMContentLoaded', function() {
 
-{/* Liste des régimes — copie tout ce bloc */}
-<div className="liste-regimes">
+  // Récupère toutes les cartes
+  const cartes = document.querySelectorAll('.carte-regime');
 
-  {/* 🩸 Adapté au diabète */}
-  <div className="carte-regime" onClick={() => ouvrirLePlanDetail("diabete")}>
-    <span>🩸</span>
-    <h3>Adapté au diabète</h3>
-    <p>30 jours — faible en sucre, riche en fibres</p>
-    <span className="fleche">›</span>
-  </div>
+  // Ajoute un clic sur chaque carte
+  cartes.forEach(function(carte) {
+    carte.addEventListener('click', function() {
+      const nomDuPlan = this.getAttribute('data-plan');
+      
+      // Pour l'instant : affiche un message
+      alert("Ouverture du plan : " + nomDuPlan);
 
-  {/* ❤️ Santé cardiaque */}
-  <div className="carte-regime" onClick={() => ouvrirLePlanDetail("sante-cardiaque")}>
-    <span>❤️</span>
-    <h3>Santé cardiaque</h3>
-    <p>30 jours — légers, légumes, peu d'huile</p>
-    <span className="fleche">›</span>
-  </div>
+      // ✅ Quand tes pages détail sont prêtes, SUPPRIME la ligne alert() ci-dessus
+      // et décommente celle-ci :
+      // window.location.href = "/regimes/" + nomDuPlan;
+    });
+  });
 
-  {/* ⚖️ Perte de poids */}
-  <div className="carte-regime" onClick={() => ouvrirLePlanDetail("perte-de-poids")}>
-    <span>⚖️</span>
-    <h3>Perte de poids</h3>
-    <p>30 jours — portions contrôlées</p>
-    <span className="fleche">›</span>
-  </div>
-
-  {/* 📈 Prise de poids */}
-  <div className="carte-regime" onClick={() => ouvrirLePlanDetail("prise-de-poids")}>
-    <span>📈</span>
-    <h3>Prise de poids</h3>
-    <p>30 jours — repas énergétiques</p>
-    <span className="fleche">›</span>
-  </div>
-
-  {/* 💪 Renforcement musculaire */}
-  <div className="carte-regime" onClick={() => ouvrirLePlanDetail("musculation")}>
-    <span>💪</span>
-    <h3>Renforcement musculaire</h3>
-    <p>30 jours — riche en protéines</p>
-    <span className="fleche">›</span>
-  </div>
-
-</div>
+});
