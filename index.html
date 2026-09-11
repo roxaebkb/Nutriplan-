@@ -1,185 +1,50 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutriplan</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriPlan — 30-Day African Meal Plans</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-<div class="app">
+  <header>
+    <h1>🍲 NutriPlan</h1>
+    <p>30-Day African Meal & Diet Plans</p>
+  </header>
 
-    <!-- Écran MENU PRINCIPAL -->
-    <div id="ecran-menu" class="ecran actif">
-        <h1>Nutriplan</h1>
+  <!-- Plan Tabs -->
+  <nav class="tabs">
+    <button class="tab-btn active" data-plan="general">General</button>
+    <button class="tab-btn" data-plan="diabetes">Diabetes</button>
+    <button class="tab-btn" data-plan="heart">Heart Healthy</button>
+    <button class="tab-btn" data-plan="weight-loss">Weight Loss</button>
+    <button class="tab-btn" data-plan="weight-gain">Weight Gain</button>
+    <button class="tab-btn" data-plan="muscle">Muscle Building</button>
+  </nav>
 
-        <div class="select-jour">
-            <button class="btn-jour actif" data-jour="1">Jour 1</button>
-            <button class="btn-jour" data-jour="2">Jour 2</button>
-            <button class="btn-jour" data-jour="3">Jour 3</button>
-            <button class="btn-jour" data-jour="4">Jour 4</button>
-            <button class="btn-jour" data-jour="5">Jour 5</button>
-        </div>
+  <!-- Day Selector -->
+  <section class="day-selector">
+    <button id="prevDay">&lt;</button>
+    <span>Day <strong id="currentDay">1</strong> of 30</span>
+    <button id="nextDay">&gt;</button>
+  </section>
 
-        <div class="carte-progression">
-            <p>Progression du mois</p>
-            <h2 id="affiche-jour">Jour 1 sur 30</h2>
-            <div class="barre">
-                <div id="remplissage" style="width: 3.33%"></div>
-            </div>
-        </div>
+  <!-- Progress Bar -->
+  <div class="progress-bar">
+    <div id="progressFill"></div>
+  </div>
 
-        <h3>Repas du jour</h3>
-        <div id="conteneur-repas"></div>
-    </div>
+  <!-- Meals Display -->
+  <main id="mealsContainer">
+    <!-- Injected by JavaScript -->
+  </main>
 
-    <!-- Écran LISTE DES RÉGIMES -->
-    <div id="ecran-regimes" class="ecran">
-        <h1>Plans diététiques spécifiques</h1>
-        <div class="liste-regimes">
-            <div class="carte-regime" data-regime="diabete">
-                <span class="icone">🩸</span>
-                <div>
-                    <h3>Adapté au diabète</h3>
-                    <p>30 jours — faible en sucre, riche en fibres</p>
-                </div>
-                <span class="fleche">›</span>
-            </div>
-            <div class="carte-regime" data-regime="coeur">
-                <span class="icone">❤️</span>
-                <div>
-                    <h3>Santé cardiaque</h3>
-                    <p>30 jours — repas légers, légumes, peu d'huile</p>
-                </div>
-                <span class="fleche">›</span>
-            </div>
-            <div class="carte-regime" data-regime="poids">
-                <span class="icone">⚖️</span>
-                <div>
-                    <h3>Perte de poids</h3>
-                    <p>30 jours — repas simples, légumes, portions contrôlées</p>
-                </div>
-                <span class="fleche">›</span>
-            </div>
-            <div class="carte-regime" data-regime="prise-poids">
-                <span class="icone">📈</span>
-                <div>
-                    <h3>Prise de poids</h3>
-                    <p>30 jours — repas énergétiques</p>
-                </div>
-                <span class="fleche">›</span>
-            </div>
-            <div class="carte-regime" data-regime="muscle">
-                <span class="icone">💪</span>
-                <div>
-                    <h3>Renforcement musculaire</h3>
-                    <p>30 jours — riche en protéines</p>
-                </div>
-                <span class="fleche">›</span>
-            </div>
-        </div>
-    </div>
+  <!-- Footer -->
+  <footer>
+    <p>Authentic African recipes • No repetition (max 2 repeats) • 30 days per plan</p>
+  </footer>
 
-    <!-- Écran DÉTAIL D'UN RÉGIME -->
-    <div id="ecran-detail-regime" class="ecran">
-        <button id="btn-retour" class="bouton-retour">← Retour aux régimes</button>
-        <h1 id="titre-regime">Nom du régime</h1>
-        <p id="desc-regime" class="description-regime">Description du régime</p>
-
-        <div class="select-jour">
-            <button class="btn-jour-regime actif" data-jour="1">Jour 1</button>
-            <button class="btn-jour-regime" data-jour="2">Jour 2</button>
-            <button class="btn-jour-regime" data-jour="3">Jour 3</button>
-            <button class="btn-jour-regime" data-jour="4">Jour 4</button>
-            <button class="btn-jour-regime" data-jour="5">Jour 5</button>
-        </div>
-
-        <div class="carte-progression">
-            <p>Progression du régime</p>
-            <h2 id="affiche-jour-regime">Jour 1 sur 30</h2>
-            <div class="barre">
-                <div id="remplissage-regime" style="width: 3.33%"></div>
-            </div>
-        </div>
-
-        <h3>Repas du jour adaptés</h3>
-        <div id="conteneur-repas-regime"></div>
-    </div>
-
-    <!-- Écran FAVORIS -->
-    <div id="ecran-favoris" class="ecran">
-        <h1>Mes recettes favorites</h1>
-        <div id="conteneur-favoris">
-            <div class="etat-vide">
-                <span>❤️</span>
-                <h3>Aucune recette sauvegardée</h3>
-                <p>Clique sur le cœur d'un repas pour l'ajouter ici</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Écran COMMANDES -->
-    <div id="ecran-commandes" class="ecran">
-        <h1>Packs repas et courses</h1>
-        <div class="liste-packs">
-            <div class="carte-pack">
-                <span class="icone">📦</span>
-                <div>
-                    <h3>Pack repas prêt à consommer</h3>
-                    <p>Repas africains prêts pour les jours occupés</p>
-                    <strong>KES 850</strong>
-                </div>
-                <button class="btn-commander">Commander</button>
-            </div>
-            <div class="carte-pack">
-                <span class="icone">🎓</span>
-                <div>
-                    <h3>Pack étudiant</h3>
-                    <p>Pack économique hebdomadaire</p>
-                    <strong>KES 1 500</strong>
-                </div>
-                <button class="btn-commander">Commander</button>
-            </div>
-            <div class="carte-pack">
-                <span class="icone">👨‍👩‍👧</span>
-                <div>
-                    <h3>Pack familial hebdomadaire</h3>
-                    <p>Ingrédients et repas complets</p>
-                    <strong>KES 4 800</strong>
-                </div>
-                <button class="btn-commander">Commander</button>
-            </div>
-            <div class="carte-pack">
-                <span class="icone">🥬</span>
-                <div>
-                    <h3>Panier ingrédients frais</h3>
-                    <p>Légumes, céréales, poissons, épices</p>
-                    <strong>KES 2 200</strong>
-                </div>
-                <button class="btn-commander">Commander</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Barre de navigation en bas -->
-    <nav class="nav-bas">
-        <button class="btn-nav actif" data-ecran="menu">
-            <span>📅</span> Menu
-        </button>
-        <button class="btn-nav" data-ecran="regimes">
-            <span>🛡️</span> Régimes
-        </button>
-        <button class="btn-nav" data-ecran="favoris">
-            <span>❤️</span> Enregistrés
-        </button>
-        <button class="btn-nav" data-ecran="commandes">
-            <span>🛒</span> Commandes
-        </button>
-    </nav>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
