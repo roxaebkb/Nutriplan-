@@ -1,50 +1,204 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NutriPlan — 30-Day African Meal Plans</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>NutriPlan — 30 Jours de Menus Africains</title>
+  <style>
+    :root {
+      --bg: #fff9f2;
+      --card: #ffffff;
+      --text: #4a2c2a;
+      --muted: #866664;
+      --accent: #e67e5d;
+      --accent-light: #ffe4d6;
+      --border: #f0d4c5;
+      --shadow: rgba(93, 64, 55, 0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 3rem; }
+    header { text-align: center; padding: 2rem 1rem 1rem; }
+    header h1 { font-size: 1.8rem; color: var(--accent); }
+    header p { color: var(--muted); font-size: 0.95rem; }
+    .tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; padding: 0.8rem; }
+    .tab-btn { padding: 0.6rem 1rem; border: none; border-radius: 2rem; background: var(--card); color: var(--muted); border: 1px solid var(--border); cursor: pointer; font-size: 0.88rem; transition: all 0.25s ease; }
+    .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 2px 6px var(--shadow); }
+    .tab-btn:hover:not(.active) { background: var(--accent-light); }
+    .day-selector { display: flex; align-items: center; justify-content: center; gap: 1.2rem; padding: 1rem; font-size: 1.05rem; font-weight: 500; }
+    .day-selector button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 1rem; cursor: pointer; transition: 0.2s; }
+    .day-selector button:hover { background: var(--accent); color: white; border-color: var(--accent); }
+    .progress-bar { width: 92%; max-width: 420px; margin: 0 auto 1.2rem; height: 10px; background: var(--accent-light); border-radius: 5px; overflow: hidden; }
+    #progressFill { height: 100%; width: 3.33%; background: var(--accent); border-radius: 5px; transition: width 0.3s ease; }
+    #mealsContainer { max-width: 480px; margin: 0 auto; padding: 0 1rem; }
+    .meal-card { background: var(--card); border-radius: 14px; padding: 1.2rem; margin-bottom: 1rem; box-shadow: 0 4px 10px var(--shadow); border: 1px solid var(--border); }
+    .meal-card h3 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--accent); display: flex; align-items: center; gap: 0.4rem; }
+    .meal-card p { font-size: 0.98rem; color: var(--text); line-height: 1.5; }
+    .meal-card.breakfast h3::before { content: "🌅"; }
+    .meal-card.lunch h3::before { content: "☀️"; }
+    .meal-card.dinner h3::before { content: "🌙"; }
+    footer { text-align: center; margin-top: 2rem; padding: 1rem; font-size: 0.85rem; color: var(--muted); }
+  </style>
 </head>
 <body>
 
   <header>
     <h1>🍲 NutriPlan</h1>
-    <p>30-Day African Meal & Diet Plans</p>
+    <p>30 Jours de Menus et Régimes Africains</p>
   </header>
 
-  <!-- Plan Tabs -->
   <nav class="tabs">
-    <button class="tab-btn active" data-plan="general">General</button>
-    <button class="tab-btn" data-plan="diabetes">Diabetes</button>
-    <button class="tab-btn" data-plan="heart">Heart Healthy</button>
-    <button class="tab-btn" data-plan="weight-loss">Weight Loss</button>
-    <button class="tab-btn" data-plan="weight-gain">Weight Gain</button>
-    <button class="tab-btn" data-plan="muscle">Muscle Building</button>
+    <button class="tab-btn active" data-plan="general">Général</button>
+    <button class="tab-btn" data-plan="diabetes">Diabète</button>
+    <button class="tab-btn" data-plan="heart">Santé Cardiaque</button>
+    <button class="tab-btn" data-plan="weight-loss">Perte de Poids</button>
+    <button class="tab-btn" data-plan="weight-gain">Prise de Poids</button>
+    <button class="tab-btn" data-plan="muscle">Musculation</button>
   </nav>
 
-  <!-- Day Selector -->
   <section class="day-selector">
     <button id="prevDay">&lt;</button>
-    <span>Day <strong id="currentDay">1</strong> of 30</span>
+    <span>Jour <strong id="currentDay">1</strong> sur 30</span>
     <button id="nextDay">&gt;</button>
   </section>
 
-  <!-- Progress Bar -->
   <div class="progress-bar">
     <div id="progressFill"></div>
   </div>
 
-  <!-- Meals Display -->
-  <main id="mealsContainer">
-    <!-- Injected by JavaScript -->
-  </main>
+  <main id="mealsContainer"></main>
 
-  <!-- Footer -->
   <footer>
-    <p>Authentic African recipes • No repetition (max 2 repeats) • 30 days per plan</p>
+    <p>Recettes africaines authentiques • Sans répétition (max 2 répétitions) • 30 jours par régime</p>
   </footer>
 
-  <script src="app.js"></script>
-</body>
-</html>
+<script>
+const PLANS = {
+  general: { name: "Menu Général", days: [
+    { breakfast: "🌾 Bouillie d'avoine + 🍌 Banane + 🥛 Lait", lunch: "🍚 Pilau kényan au poulet 🍗", dinner: "🥔 Feuilles de manioc au lait de coco 🥥 + Ugali" },
+    { breakfast: "🍚 Ugali + 🥚 Œufs frits + 🥗 Kachumbari", lunch: "🥩 Nyama Choma + 🍚 Ugali + 🥬 Sukuma Wiki", dinner: "🫓 Mahamri + 🍌 Compote de fruits" },
+    { breakfast: "🍠 Bouillie de patate douce + 🥜 Arachides", lunch: "🐟 Potage de tilapia + 🍚 Ugali", dinner: "🌽 Githeri + 🥬 Feuilles d'amarante" },
+    { breakfast: "🥔 Arrowroots bouillis + 🥛 Yaourt", lunch: "🍚 Riz au coco 🥥 + 🫘 Ragout de haricots", dinner: "🫓 Chapati + 🥩 Ragout de bœuf et pommes de terre" },
+    { breakfast: "🫓 Mandazi + 🍌 Banane sucrée", lunch: "🥔 Matoke + 🫘 Haricots et sauce arachide", dinner: "🍚 Ugali + 🐟 Omena + 🥬 Légumes" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Papaye", lunch: "🍚 Riz complet + 🫘 Ragout de lentilles et épinards", dinner: "🥔 Igname + 🥬 Ragout de légumes et poulet" },
+    { breakfast: "🌽 Maïs bouilli + 🥛 Lait frais", lunch: "🍚 Ugali + 🥬 Sukuma Wiki + 🥩 Foie frit", dinner: "🥣 Soupe d'arachide + 🍚 Riz blanc" },
+    { breakfast: "🍠 Patate douce + 🥚 Œufs brouillés", lunch: "🥔 Mukimo + 🐟 Poisson grillé", dinner: "🥔 Manioc + 🥬 Ragout de légumes" },
+    { breakfast: "🍚 Ugali nature + 🥛 Lait tiède", lunch: "🍚 Riz + 🐟 Curry de poisson au coco 🥥", dinner: "🍌 Plantain + 🫘 Haricots + 🥑 Salade d'avocat" },
+    { breakfast: "🍌 Salade de fruits + 🥜 Arachides", lunch: "🍚 Ugali + 🥬 Managu + 🥩 Bœuf", dinner: "🫓 Chapati + 🌽 Githeri" },
+    { breakfast: "🌾 Bouillie d'Arrowroot + 🍌 Banane", lunch: "🥔 Matoke + 🍗 Poulet grillé + 🥬 Légumes", dinner: "🍚 Ugali complet + 🫘 Haricots et sauce arachide" },
+    { breakfast: "🥚 Œufs bouillis + 🍠 Patate douce", lunch: "🍚 Riz + 🫘 Ragout de Ndengu + 🥗 Kachumbari", dinner: "🥔 Manioc + 🐟 Potage de tilapia" },
+    { breakfast: "🫓 Mandazi + 🥛 Lait", lunch: "🍚 Ugali + 🥬 Sukuma Wiki + 🐟 Tilapia frite", dinner: "🥔 Igname + 🫘 Haricots au lait de coco 🥥" },
+    { breakfast: "🌾 Bouillie d'avoine + 🥑 Avocat", lunch: "🫓 Chapati + 🥩 Bœuf haché et petits pois", dinner: "🍌 Plantain + 🥬 Ragout de légumes et arachides" },
+    { breakfast: "🍠 Patate douce + 🍹 Jus de fruits", lunch: "🍚 Riz complet + 🐟 Omena sauté + 🥬 Légumes", dinner: "🍚 Ugali + 🫘 Ragout de haricots et tomates" },
+    { breakfast: "🥔 Manioc bouilli + 🥛 Yaourt", lunch: "🥔 Mukimo + 🥜 Arachides grillées + 🥑 Avocat", dinner: "🍚 Ugali de millet + 🐟 Poisson et 🫘 Potage de gombo" },
+    { breakfast: "🌾 Bouillie de millet + 🥜 Arachides", lunch: "🥔 Matoke + 🫘 Haricots au lait de coco 🥥", dinner: "🫓 Chapati + 🐟 Tilapia grillée + 🥗 Kachumbari" },
+    { breakfast: "🍚 Ugali + 🥚 Œufs frits + 🍅 Salsa de tomates", lunch: "🍚 Riz + 🥩 Ragout de bœuf et champignons", dinner: "🍠 Patate douce + 🫘 Ragout de lentilles et légumes verts" },
+    { breakfast: "🫓 Mandazi + 🥭 Mangue fraîche", lunch: "🍚 Ugali + 🥬 Sukuma Wiki + 🐐 Viande de chèvre rôtie", dinner: "🥔 Feuilles de manioc + 🍚 Riz complet" },
+    { breakfast: "🥔 Arrowroots + 🥛 Lait tiède", lunch: "🍚 Riz au coco 🥥 + 🐟 Poisson frit + 🥬 Légumes", dinner: "🍌 Plantain + 🫘 Haricots et 🥑 Avocat" },
+    { breakfast: "🍠 Patate douce bouillie + 🥚 Œufs brouillés", lunch: "🫓 Chapati + 🍗 Ragout de poulet et légumes", dinner: "🍚 Ugali + 🌽 Githeri + 🥗 Kachumbari" },
+    { breakfast: "🍌 Compote de fruits + 🥜 Arachides", lunch: "🍚 Riz complet + 🫘 Ragout de haricots et épinards", dinner: "🥔 Igname + 🐟 Tilapia grillée + 🥬 Sukuma Wiki" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Banane", lunch: "🍚 Ugali + 🥬 Managu + 🐟 Poisson frit", dinner: "🥔 Manioc + 🥩 Ragout de bœuf et légumes" },
+    { breakfast: "🫓 Mandazi + 🥛 Lait", lunch: "🥔 Matoke + 🥜 Ragout d'arachide + 🥑 Avocat", dinner: "🫓 Chapati + 🐟 Omena sauté" },
+    { breakfast: "🌽 Maïs bouilli + 🫘 Haricots", lunch: "🍚 Riz + 🫘 Ragout de haricots au coco 🥥 + 🥬 Légumes", dinner: "🍚 Ugali + 🐟 Potage de tilapia et gombo" },
+    { breakfast: "🍠 Patate douce + 🥛 Yaourt", lunch: "🥔 Mukimo + 🥩 Bœuf grillé + 🥗 Kachumbari", dinner: "🍌 Plantain + 🫘 Haricots et sauce arachide" },
+    { breakfast: "🌾 Bouillie d'Arrowroot + 🍌 Papaye", lunch: "🍚 Ugali + 🥬 Sukuma Wiki + 🍗 Ragout de poulet", dinner: "🍚 Riz complet + 🫘 Ragout de lentilles et tomates" },
+    { breakfast: "🌾 Bouillie d'avoine + 🥑 Avocat", lunch: "🫓 Chapati + 🌽 Githeri + 🥬 Légumes verts", dinner: "🥔 Manioc + 🐟 Tilapia grillée + 🥗 Salade" },
+    { breakfast: "🫓 Mandazi + 🍹 Jus de fruits", lunch: "🥔 Matoke + 🐟 Poisson au lait de coco 🥥", dinner: "🍚 Ugali + 🫘 Haricots et 🥑 Salade d'avocat" },
+    { breakfast: "🍠 Patate douce bouillie + 🥚 Œufs", lunch: "🍚 Riz complet + 🥩 Nyama Choma + 🥬 Légumes", dinner: "🥔 Igname + 🥣 Soupe d'arachide + 🫓 Chapati" }
+  ]},
+  diabetes: { name: "Diabète", days: [
+    { breakfast: "🍠 Patate douce bouillie + 🥛 Lait tiède", lunch: "🍚 Riz complet + 🫘 Haricots rouges + 🥑 Avocat", dinner: "🍚 Ugali (petit) + 🥬 Sukuma Wiki + 🐟 Tilapia grillée" },
+    { breakfast: "🍚 Ugali complet + 🥬 Légumes + 🥜 Pâte d'arachide", lunch: "🥔 Matoke + 🫘 Haricots et légumes", dinner: "🌾 Bouillie de millet (sans sucre) + 🥜 Arachides" },
+    { breakfast: "🥔 Arrowroots bouillis + 🥛 Yaourt nature", lunch: "🍚 Riz complet + 🫘 Ragout de lentilles + 🫘 Gombo", dinner: "🥔 Manioc (modéré) + 🐟 Potage de poisson + 🥬 Légumes" },
+    { breakfast: "🌾 Bouillie de millet + 🥑 Avocat", lunch: "🍚 Ugali + 🥬 Managu + 🍗 Poulet grillé", dinner: "🍠 Patate douce + 🫘 Ragout de haricots et légumes" },
+    { breakfast: "🥔 Manioc bouilli + 🥛 Yaourt sans sucre", lunch: "🌾 Ugali de sorgho + 🫘 Gombo + 🐟 Poisson", dinner: "🍚 Riz complet + 🫘 Haricots + 🥗 Salade" },
+    { breakfast: "🌽 Maïs bouilli + 🫘 Haricots", lunch: "🥔 Matoke + 🫘 Lentilles + 🥬 Légumes", dinner: "🫓 Chapati de millet + 🥬 Ragout de légumes" },
+    { breakfast: "🍠 Patate douce + 🥚 Œuf bouilli", lunch: "🍚 Riz complet + 🐟 Tilapia grillée + 🫘 Gombo", dinner: "🍚 Ugali (demi) + 🥬 Sukuma Wiki + 🫘 Sauce aux haricots" },
+    { breakfast: "🥔 Arrowroots + 🥑 Avocat", lunch: "🌽 Githeri (léger) + 🥗 Kachumbari", dinner: "🥔 Matoke + 🫘 Haricots + 🥜 Pâte d'arachide (légère)" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Papaye", lunch: "🍚 Riz complet + 🫘 Ragout de Ndengu + 🥬 Légumes", dinner: "🥔 Manioc + 🫘 Potage de gombo et poisson" },
+    { breakfast: "🍠 Patate douce bouillie + 🥜 Arachides", lunch: "🍚 Ugali + 🥬 Feuilles d'amarante + 🥩 Bœuf grillé", dinner: "🍚 Riz complet + 🫘 Ragout de lentilles et épinards" },
+    { breakfast: "🥔 Igname bouillie + 🥛 Yaourt", lunch: "🌾 Ugali de sorgho + 🥬 Sukuma Wiki + 🍗 Poulet", dinner: "🍠 Patate douce + 🫘 Ragout de haricots et gombo" },
+    { breakfast: "🌾 Bouillie de millet + 🥑 Avocat", lunch: "🥔 Matoke + 🐟 Tilapia grillée + 🥬 Légumes", dinner: "🍚 Ugali complet + 🫘 Haricots + 🍅 Salsa de tomates" },
+    { breakfast: "🥔 Arrowroots bouillis + 🥚 Œuf bouilli", lunch: "🍚 Riz complet + 🫘 Ragout de haricots et légumes", dinner: "🥔 Manioc + 🐟 Poisson grillé + 🫘 Gombo" },
+    { breakfast: "🍠 Patate douce + 🥛 Yaourt sans sucre", lunch: "🍚 Ugali + 🥬 Managu + 🫘 Ragout de haricots", dinner: "🫓 Chapati de millet + 🫘 Lentilles et légumes" },
+    { breakfast: "🌾 Bouillie de millet + 🥜 Arachides", lunch: "🥔 Matoke + 🫘 Gombo + 🐟 Potage de poisson", dinner: "🍚 Riz complet + 🫘 Haricots + 🥑 Avocat" },
+    { breakfast: "🥔 Manioc bouilli + 🥑 Avocat", lunch: "🌾 Ugali de sorgho + 🥬 Sukuma Wiki + 🐟 Tilapia grillée", dinner: "🍠 Patate douce + 🫘 Ragout de lentilles" },
+    { breakfast: "🥔 Igname + 🥚 Œuf bouilli", lunch: "🍚 Riz complet + 🍗 Poulet grillé + 🥬 Légumes", dinner: "🍚 Ugali (demi) + 🫘 Gombo + 🫘 Sauce aux haricots" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Papaye", lunch: "🌽 Githeri + 🥑 Avocat + 🥗 Kachumbari", dinner: "🥔 Matoke + 🫘 Ragout de haricots et épinards" },
+    { breakfast: "🍠 Patate douce + 🥛 Lait nature", lunch: "🍚 Riz complet + 🫘 Ndengu + 🫘 Gombo", dinner: "🥔 Manioc + 🥩 Bœuf grillé + 🥬 Légumes" },
+    { breakfast: "🥔 Arrowroots + 🥛 Yaourt", lunch: "🍚 Ugali + 🥬 Sukuma Wiki + 🐟 Potage de poisson", dinner: "🫓 Chapati de millet + 🫘 Haricots + 🥑 Avocat" },
+    { breakfast: "🌽 Maïs bouilli + 🫘 Haricots", lunch: "🥔 Matoke + 🫘 Lentilles + 🫘 Gombo", dinner: "🍚 Riz complet + 🐟 Tilapia grillée + 🥗 Salade" },
+    { breakfast: "🌾 Bouillie de millet + 🥑 Avocat", lunch: "🌾 Ugali de sorgho + 🥬 Managu + 🍗 Poulet", dinner: "🍠 Patate douce + 🫘 Ragout de haricots et légumes" },
+    { breakfast: "🥔 Manioc + 🥚 Œuf bouilli", lunch: "🍚 Riz complet + 🫘 Potage de haricots et gombo", dinner: "🍚 Ugali (demi) + 🥬 Sukuma Wiki + 🥜 Pâte d'arachide" },
+    { breakfast: "🥔 Igname + 🥜 Arachides", lunch: "🥔 Matoke + 🐟 Poisson grillé + 🥬 Légumes", dinner: "🍚 Riz complet + 🫘 Ragout de lentilles et tomates" },
+    { breakfast: "🍠 Patate douce + 🥛 Yaourt sans sucre", lunch: "🍚 Ugali + 🥬 Feuilles d'amarante + 🐟 Tilapia grillée", dinner: "🥔 Manioc + 🫘 Haricots et 🥑 Salade d'avocat" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Banane", lunch: "🍚 Riz complet + 🍗 Potage de poulet et gombo", dinner: "🫓 Chapati de millet + 🫘 Haricots + 🥬 Légumes" },
+    { breakfast: "🥔 Arrowroots + 🥑 Avocat", lunch: "🌽 Githeri + 🫘 Gombo + 🐟 Poisson", dinner: "🥔 Matoke + 🫘 Ragout de lentilles et épinards" },
+    { breakfast: "🥔 Manioc bouilli + 🥚 Œuf bouilli", lunch: "🌾 Ugali de sorgho + 🥬 Sukuma Wiki + 🫘 Ragout de haricots", dinner: "🍠 Patate douce + 🐟 Tilapia grillée + 🥗 Salade" },
+    { breakfast: "🌾 Bouillie de millet + 🥜 Arachides", lunch: "🍚 Riz complet + 🫘 Ndengu + 🥬 Légumes", dinner: "🍚 Ugali (demi) + 🫘 Potage de gombo et poisson" },
+    { breakfast: "🥔 Igname + 🥛 Lait tiède", lunch: "🥔 Matoke + 🫘 Haricots + 🥑 Avocat", dinner: "🍚 Riz complet + 🍗 Poulet grillé + 🫘 Gombo" }
+  ]},
+  heart: { name: "Santé Cardiaque", days: [
+    { breakfast: "🌾 Bouillie d'avoine sans sucre + 🍌 Papaye", lunch: "🍚 Ugali vapeur + 🥬 Sukuma Wiki + 🐟 Tilapia au four", dinner: "🥗 Salade de haricots et légumes + 🍠 Patate douce bouillie" },
+    { breakfast: "🍌 Salade de fruits + 🥛 Yaourt", lunch: "🍚 Riz complet + 🍗 Potage de poulet sans huile + 🥬 Légumes", dinner: "🥔 Matoke vapeur + 🥬 Légumes + 🥜 Sauce arachide" },
+    { breakfast: "🌾 Bouillie d'avoine et fruits", lunch: "🫘 Ragout de lentilles et épinards + 🫓 Petit Chapati complet", dinner: "🐟 Poisson grillé + 🍚 Ugali + 🥗 Kachumbari" },
+    { breakfast: "🍠 Patate douce bouillie + 🥚 Œuf bouilli", lunch: "🍚 Riz complet + 🫘 Potage de gombo et poisson", dinner: "🍌 Plantain vapeur + 🫘 Salade de haricots" },
+    { breakfast: "🌾 Bouillie de millet + 🥑 Avocat", lunch: "🍚 Ugali + 🥬 Managu + 🍗 Poulet au four", dinner: "🥣 Soupe de haricots et légumes + 🍠 Patate douce" },
+    { breakfast: "🥭 Mangue fraîche + 🥜 Arachides", lunch: "🥔 Matoke vapeur + 🫘 Lentilles + 🥬 Légumes", dinner: "🍚 Riz complet + 🐟 Tilapia grillée + 🥗 Salade" },
+    { breakfast: "🥔 Arrowroots bouillis + 🥛 Yaourt", lunch: "🍚 Ugali + 🥬 Sukuma Wiki + 🐟 Omena (sans huile)", dinner: "🥔 Igname + 🫘 Ragout de haricots et tomates" },
+    { breakfast: "🌾 Bouillie d'avoine + 🍌 Banane", lunch: "🍚 Riz complet + 🥬 Ragout de légumes et poulet", dinner: "🥔 Manioc vapeur + 🐟 Poisson grillé + 🫘 Gombo" },
+    { breakfast: "🍌 Compote de fruits + 🥚 Œuf bouilli", lunch: "🫓 Chapati complet + 🫘 Ragout de haricots et épinards", dinner: "🥔 Matoke vapeur + 🥑 Avocat + 🥬 Légumes" },
+    { breakfast: "🍠 Patate douce bouillie + 🥑 Avocat", lunch: "🍚 Ugali + 🥬 Feuilles d'amarante + 🐟 Tilapia au four", dinner: "🍚 Riz complet + 🫘 Ragout de lentilles et légumes" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Papaye", lunch: "🍌 Plantain vapeur + 🫘 Haricots + 🥬 Légumes", dinner: "🍗 Poulet grillé + 🍠 Patate douce + 🥗 Salade" },
+    { breakfast: "🥔 Manioc bouilli + 🥛 Yaourt", lunch: "🍚 Riz complet + 🫘 Potage de gombo et lentilles", dinner: "🍚 Ugali + 🥬 Sukuma Wiki + 🫘 Sauce aux haricots" },
+    { breakfast: "🍌 Fruits frais + 🥜 Arachides", lunch: "🥔 Matoke vapeur + 🐟 Poisson au four + 🫘 Gombo", dinner: "🫓 Chapati complet + 🫘 Haricots et 🥑 Salade d'avocat" },
+    { breakfast: "🌾 Bouillie d'avoine + 🥑 Avocat", lunch: "🍚 Ugali + 🥬 Managu + 🍗 Poulet grillé", dinner: "🍚 Riz complet + 🥬 Ragout de haricots et légumes" },
+    { breakfast: "🥔 Igname bouillie + 🥚 Œuf bouilli", lunch: "🍚 Riz complet + 🫘 Ragout de Ndengu + 🥬 Légumes", dinner: "🥔 Manioc vapeur + 🐟 Tilapia + 🥗 Salade" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Banane", lunch: "🍌 Plantain vapeur + 🫘 Lentilles + 🫘 Gombo", dinner: "🐟 Tilapia grillée + 🍠 Patate douce + 🥬 Légumes" },
+    { breakfast: "🍠 Patate douce bouillie + 🥛 Yaourt", lunch: "🍚 Ugali + 🥬 Sukuma Wiki + 🐟 Poisson au four", dinner: "🍚 Riz complet + 🫘 Ragout de haricots et tomates" },
+    { breakfast: "🍌 Salade de fruits + 🥑 Avocat", lunch: "🫓 Chapati complet + 🍗 Ragout de poulet et légumes", dinner: "🥔 Matoke vapeur + 🫘 Gombo et sauce aux haricots" },
+    { breakfast: "🥔 Arrowroots bouillis + 🥜 Arachides", lunch: "🍚 Riz complet + 🍗 Poulet grillé + 🥗 Salade", dinner: "🍚 Ugali + 🥬 Feuilles d'amarante + 🫘 Ragout de haricots" },
+    { breakfast: "🌾 Bouillie d'avoine + 🍌 Papaye", lunch: "🥔 Manioc vapeur + 🫘 Ragout de lentilles et épinards", dinner: "🐟 Poisson grillé + 🥔 Igname + 🥗 Kachumbari" },
+    { breakfast: "🥔 Manioc bouilli + 🥚 Œuf bouilli", lunch: "🍚 Ugali + 🫘 Gombo + 🐟 Tilapia au four", dinner: "🍚 Riz complet + 🫘 Haricots et 🥑 Salade d'avocat" },
+    { breakfast: "🌾 Bouillie de millet + 🥑 Avocat", lunch: "🥔 Matoke vapeur + 🫘 Haricots + 🥬 Légumes", dinner: "🫓 Chapati complet + 🫘 Ragout de lentilles et légumes" },
+    { breakfast: "🍌 Fruits frais + 🥛 Yaourt", lunch: "🍚 Riz complet + 🍗 Potage de poulet et gombo", dinner: "🍌 Plantain vapeur + 🐟 Poisson grillé + 🥗 Salade" },
+    { breakfast: "🍠 Patate douce bouillie + 🥜 Arachides", lunch: "🍚 Ugali + 🥬 Managu + 🫘 Ragout de haricots", dinner: "🍚 Riz complet + 🫘 Gombo et tilapia" },
+    { breakfast: "🥔 Igname bouillie + 🥚 Œuf bouilli", lunch: "🥔 Manioc vapeur + 🫘 Lentilles + 🥬 Légumes", dinner: "🍗 Poulet grillé + 🍠 Patate douce + 🫘 Gombo" },
+    { breakfast: "🌾 Bouillie d'avoine + 🍌 Banane", lunch: "🫓 Chapati complet + 🐟 Tilapia au four + 🥗 Salade", dinner: "🍚 Ugali + 🥬 Sukuma Wiki + 🫘 Sauce aux haricots" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Papaye", lunch: "🍚 Riz complet + 🫘 Ragout de haricots et épinards", dinner: "🥔 Matoke vapeur + 🐟 Poisson grillé + 🥬 Légumes" },
+    { breakfast: "🥔 Arrowroots bouillis + 🥑 Avocat", lunch: "🍌 Plantain vapeur + 🫘 Potage de gombo et lentilles", dinner: "🍚 Riz complet + 🍗 Ragout de poulet et légumes" },
+    { breakfast: "🍌 Salade de fruits + 🥜 Arachides", lunch: "🍚 Ugali + 🥬 Feuilles d'amarante + 🐟 Poisson au four", dinner: "🫓 Chapati complet + 🫘 Haricots et 🥑 Salade d'avocat" },
+    { breakfast: "🥔 Manioc bouilli + 🥛 Yaourt", lunch: "🍚 Riz complet + 🫘 Ndengu + 🫘 Gombo", dinner: "🍠 Patate douce vapeur + 🐟 Tilapia grillée + 🥬 Légumes" }
+  ]},
+  "weight-loss": { name: "Perte de Poids", days: [
+    { breakfast: "🥚 Œuf bouilli + 🥬 Sukuma Wiki + 🍠 Petite patate douce", lunch: "🍚 Riz complet + 🫘 Ragout de haricots et légumes + 🥗 Salade", dinner: "🍚 Ugali (½) + 🥬 Légumes + 🐟 Poisson grillé" },
+    { breakfast: "🌾 Bouillie de millet sans sucre + 🥑 Avocat", lunch: "🌽 Githeri (léger) + 🥗 Kachumbari", dinner: "🥣 Soupe de légumes et poulet + 🫓 Petit Chapati" },
+    { breakfast: "🍌 Fruits frais + 🥜 Poignée d'arachides", lunch: "🥔 Matoke vapeur + 🫘 Ragout de lentilles", dinner: "🥬 Légumes variés + 🐟 Tilapia grillée" },
+    { breakfast: "🥚 Œuf bouilli + 🥔 Arrowroots", lunch: "🍚 Riz complet + 🫘 Potage de gombo et poisson (léger)", dinner: "🥬 Sukuma Wiki + 🍗 Poulet grillé (sans ugali)" },
+    { breakfast: "🌾 Bouillie d'avoine à l'eau + 🍌 Papaye", lunch: "🍚 Ugali (½) + 🥬 Managu + 🫘 Sauce aux haricots", dinner: "🍌 Plantain vapeur + 🫘 Salade de haricots" },
+    { breakfast: "🍠 Patate douce bouillie + 🥚 Œuf bouilli", lunch: "🍚 Riz complet + 🫘 Ragout de lentilles et épinards", dinner: "🥬 Feuilles d'amarante + 🐟 Tilapia grillée" },
+    { breakfast: "🍌 Salade de fruits + 🥛 Yaourt", lunch: "🌽 Githeri + 🥑 Avocat + 🥗 Kachumbari", dinner: "🫘 Potage de gombo et poisson (sans féculent)" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Banane", lunch: "🥔 Matoke vapeur + 🫘 Ragout de haricots et légumes", dinner: "🥬 Sukuma Wiki + 🍗 Poulet grillé" },
+    { breakfast: "🥚 Œuf bouilli + 🥔 Manioc (petit)", lunch: "🍚 Riz complet + 🫘 Ragout de Ndengu + 🥗 Salade", dinner: "🐟 Tilapia grillée + 🥬 Légumes variés" },
+    { breakfast: "🌾 Bouillie d'avoine + 🥑 Avocat", lunch: "🍚 Ugali (½) + 🥬 Sukuma Wiki + 🐟 Omena", dinner: "🥣 Soupe de haricots et légumes + 🍠 Patate douce" },
+    { breakfast: "🍌 Fruits frais + 🥜 Arachides", lunch: "🍌 Plantain vapeur + 🫘 Lentilles + 🫘 Gombo", dinner: "🍗 Poulet grillé + 🥬 Feuilles d'amarante" },
+    { breakfast: "🥚 Œuf bouilli + 🥔 Igname", lunch: "🍚 Riz complet + 🫘 Ragout de haricots et épinards", dinner: "🫘 Gombo et tilapia + 🥗 Kachumbari" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Papaye", lunch: "🌽 Githeri + 🥬 Légumes + 🥑 Avocat", dinner: "🥬 Sukuma Wiki + 🫘 Sauce aux haricots (sans féculent)" },
+    { breakfast: "🍠 Patate douce bouillie + 🥛 Yaourt", lunch: "🥔 Matoke vapeur + 🐟 Poisson grillé + 🥗 Salade", dinner: "🫘 Ragout de lentilles et légumes (sans riz)" },
+    { breakfast: "🍌 Fruits frais + 🥚 Œuf bouilli", lunch: "🍚 Riz complet + 🫘 Potage de gombo et poulet", dinner: "🐟 Tilapia grillée + 🥬 Managu" },
+    { breakfast: "🌾 Bouillie d'avoine + 🍌 Banane", lunch: "🍚 Ugali (½) + 🥬 Feuilles d'amarante + 🫘 Ragout de haricots", dinner: "🥬 Légumes variés + 🍗 Poulet grillé" },
+    { breakfast: "🥔 Arrowroots bouillis + 🥑 Avocat", lunch: "🍌 Plantain vapeur + 🫘 Potage de lentilles et gombo", dinner: "🥗 Salade de haricots + 🐟 Poisson grillé" },
+    { breakfast: "🌾 Bouillie de millet + 🥜 Arachides", lunch: "🍚 Riz complet + 🫘 Ragout de haricots et tomates", dinner: "🥬 Sukuma Wiki + 🫘 Sauce au gombo" },
+    { breakfast: "🥚 Œuf bouilli + 🥔 Manioc", lunch: "🌽 Githeri + 🥗 Kachumbari + 🥑 Avocat", dinner: "🐟 Tilapia grillée + 🥬 Feuilles d'amarante" },
+    { breakfast: "🍌 Salade de fruits + 🥛 Yaourt", lunch: "🥔 Matoke vapeur + 🫘 Potage de gombo et poisson", dinner: "🫘 Ragout de lentilles et épinards" },
+    { breakfast: "🍠 Patate douce bouillie + 🥑 Avocat", lunch: "🍚 Riz complet + 🫘 Ndengu + 🥬 Légumes", dinner: "🍗 Poulet grillé + 🥬 Sukuma Wiki" },
+    { breakfast: "🌾 Bouillie d'avoine + 🍌 Papaye", lunch: "🍚 Ugali (½) + 🥬 Managu + 🐟 Poisson grillé", dinner: "🥗 Salade de haricots et légumes" },
+    { breakfast: "🥚 Œuf bouilli + 🥔 Igname", lunch: "🍌 Plantain vapeur + 🫘 Potage de haricots et gombo", dinner: "🐟 Tilapia grillée + 🥬 Légumes variés" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Banane", lunch: "🍚 Riz complet + 🫘 Ragout de lentilles et tomates", dinner: "🥬 Sukuma Wiki + 🍗 Sauce au poulet" },
+    { breakfast: "🍌 Fruits frais + 🥜 Arachides", lunch: "🌽 Githeri + 🥑 Avocat + 🥬 Légumes", dinner: "🫘 Potage de gombo et haricots" },
+    { breakfast: "🥔 Arrowroots bouillis + 🥚 Œuf bouilli", lunch: "🥔 Matoke vapeur + 🍗 Poulet grillé + 🥗 Salade", dinner: "🥬 Feuilles d'amarante + 🐟 Poisson grillé" },
+    { breakfast: "🌾 Bouillie d'avoine + 🥑 Avocat", lunch: "🍚 Riz complet + 🫘 Ragout de haricots et épinards", dinner: "🫘 Potage de lentilles et gombo" },
+    { breakfast: "🍠 Patate douce bouillie + 🥛 Yaourt", lunch: "🍚 Ugali (½) + 🥬 Sukuma Wiki + 🐟 Tilapia", dinner: "🥬 Légumes variés + 🫘 Sauce aux haricots" },
+    { breakfast: "🍌 Salade de fruits + 🥚 Œuf bouilli", lunch: "🍌 Plantain vapeur + 🫘 Ndengu + 🫘 Gombo", dinner: "🍗 Poulet grillé + 🥗 Kachumbari" },
+    { breakfast: "🌾 Bouillie de millet + 🍌 Papaye", lunch: "🍚 Riz complet + 🐟 Tilapia grillée + 🥗 Salade", dinner: "🥬 Sukuma Wiki + 🫘 Ragout de lentilles" }
+  ]},
+  "weight-gain": { name: "Prise de Poids", days: 
