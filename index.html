@@ -8,180 +8,135 @@
 </head>
 <body>
 
-    <div class="app-container">
+<div class="app">
 
-        <!-- Écran MENU -->
-        <section id="screen-menu" class="screen active">
-            <h1>Nutriplan</h1>
+    <!-- Écran MENU -->
+    <div id="ecran-menu" class="ecran actif">
+        <h1>Nutriplan</h1>
 
-            <div class="day-selector">
-                <button class="day-btn active" data-day="1">Jour 1</button>
-                <button class="day-btn" data-day="2">Jour 2</button>
-                <button class="day-btn" data-day="3">Jour 3</button>
-                <button class="day-btn" data-day="4">Jour 4</button>
-                <button class="day-btn" data-day="5">Jour 5</button>
+        <div class="select-jour">
+            <button class="btn-jour actif" data-jour="1">Jour 1</button>
+            <button class="btn-jour" data-jour="2">Jour 2</button>
+            <button class="btn-jour" data-jour="3">Jour 3</button>
+            <button class="btn-jour" data-jour="4">Jour 4</button>
+            <button class="btn-jour" data-jour="5">Jour 5</button>
+        </div>
+
+        <div class="carte-progression">
+            <p>Progression du mois</p>
+            <h2 id="affiche-jour">Jour 1 sur 30</h2>
+            <div class="barre">
+                <div id="remplissage" style="width: 3.33%"></div>
             </div>
+        </div>
 
-            <div class="progress-card">
-                <p class="progress-label">Progression du mois</p>
-                <h2 id="day-display">Jour 1 sur 30</h2>
-                <div class="progress-bar">
-                    <div id="progress-fill" style="width: 3.33%"></div>
-                </div>
-            </div>
-
-            <h3 class="section-title">Repas du jour</h3>
-            <div id="meals-container"></div>
-        </section>
-
-        <!-- Écran RÉGIMES -->
-        <section id="screen-diets" class="screen">
-            <h1>Plans diététiques</h1>
-            <div class="diet-list">
-                <div class="diet-card" data-diet="diabetes">
-                    <span class="diet-icon">🩸</span>
-                    <div>
-                        <h3>Adapté au diabète</h3>
-                        <p>30 jours — faible en sucre, riche en fibres</p>
-                    </div>
-                    <span>›</span>
-                </div>
-                <div class="diet-card" data-diet="heart">
-                    <span class="diet-icon">❤️</span>
-                    <div>
-                        <h3>Santé cardiaque</h3>
-                        <p>30 jours — légers, légumes, peu d'huile</p>
-                    </div>
-                    <span>›</span>
-                </div>
-                <div class="diet-card" data-diet="weightloss">
-                    <span class="diet-icon">⚖️</span>
-                    <div>
-                        <h3>Perte de poids</h3>
-                        <p>30 jours — portions contrôlées</p>
-                    </div>
-                    <span>›</span>
-                </div>
-                <div class="diet-card" data-diet="weightgain">
-                    <span class="diet-icon">📈</span>
-                    <div>
-                        <h3>Prise de poids</h3>
-                        <p>30 jours — repas énergétiques</p>
-                    </div>
-                    <span>›</span>
-                </div>
-                <div class="diet-card" data-diet="muscle">
-                    <span class="diet-icon">💪</span>
-                    <div>
-                        <h3>Renforcement musculaire</h3>
-                        <p>30 jours — riche en protéines</p>
-                    </div>
-                    <span>›</span>
-                </div>
-            </div>
-        </section>
-
-                <!-- Écran DÉTAIL RÉGIME -->
-        <section id="screen-diet-detail" class="screen">
-            <div class="back-btn-container">
-                <button id="back-to-diets">← Retour aux régimes</button>
-            </div>
-            <h1 id="diet-title">Détail du régime</h1>
-            <p id="diet-desc" class="diet-description"></p>
-
-            <div class="day-selector" id="diet-day-selector">
-                <button class="diet-day-btn active" data-day="1">Jour 1</button>
-                <button class="diet-day-btn" data-day="2">Jour 2</button>
-                <button class="diet-day-btn" data-day="3">Jour 3</button>
-                <button class="diet-day-btn" data-day="4">Jour 4</button>
-                <button class="diet-day-btn" data-day="5">Jour 5</button>
-            </div>
-
-            <div class="progress-card">
-                <p class="progress-label">Progression du régime</p>
-                <h2 id="diet-day-display">Jour 1 sur 30</h2>
-                <div class="progress-bar">
-                    <div id="diet-progress-fill" style="width: 3.33%"></div>
-                </div>
-            </div>
-
-            <h3 class="section-title">Repas du jour adaptés</h3>
-            <div id="diet-meals-container"></div>
-        </section>
-
-        <!-- Écran FAVORIS -->
-        <section id="screen-saved" class="screen">
-            <h1>Mes favoris</h1>
-            <div id="favorites-content">
-                <div class="empty-state">
-                    <span class="heart-icon">❤️</span>
-                    <h3>Aucune recette sauvegardée</h3>
-                    <p>Clique sur le cœur d'un repas pour l'ajouter ici</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Écran COMMANDES -->
-        <section id="screen-orders" class="screen">
-            <h1>Packs & Courses</h1>
-            <div class="order-list">
-                <div class="order-card">
-                    <span class="order-icon">📦</span>
-                    <div>
-                        <h3>Pack repas prêt à consommer</h3>
-                        <p>Repas africains prêts pour les jours occupés</p>
-                        <strong>KES 850</strong>
-                    </div>
-                    <button class="order-btn">Commander</button>
-                </div>
-                <div class="order-card">
-                    <span class="order-icon">🎓</span>
-                    <div>
-                        <h3>Pack étudiant</h3>
-                        <p>Pack économique hebdomadaire</p>
-                        <strong>KES 1 500</strong>
-                    </div>
-                    <button class="order-btn">Commander</button>
-                </div>
-                <div class="order-card">
-                    <span class="order-icon">👨‍👩‍👧</span>
-                    <div>
-                        <h3>Pack familial hebdomadaire</h3>
-                        <p>Ingrédients et repas complets</p>
-                        <strong>KES 4 800</strong>
-                    </div>
-                    <button class="order-btn">Commander</button>
-                </div>
-                <div class="order-card">
-                    <span class="order-icon">🥬</span>
-                    <div>
-                        <h3>Panier ingrédients frais</h3>
-                        <p>Légumes, céréales, poissons, épices</p>
-                        <strong>KES 2 200</strong>
-                    </div>
-                    <button class="order-btn">Commander</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Barre de navigation -->
-        <nav class="bottom-nav">
-            <button class="nav-btn active" data-screen="menu">
-                <span>📅</span> Menu
-            </button>
-            <button class="nav-btn" data-screen="diets">
-                <span>🛡️</span> Régimes
-            </button>
-            <button class="nav-btn" data-screen="saved">
-                <span>❤️</span> Favoris
-            </button>
-            <button class="nav-btn" data-screen="orders">
-                <span>🛒</span> Commandes
-            </button>
-        </nav>
-
+        <h3>Repas du jour</h3>
+        <div id="conteneur-repas"></div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Écran RÉGIMES -->
+    <div id="ecran-regimes" class="ecran">
+        <h1>Plans diététiques</h1>
+        <div class="liste-regimes">
+            <div class="carte-regime" data-regime="diabete">
+                <span class="icone">🩸</span>
+                <div>
+                    <h3>Adapté au diabète</h3>
+                    <p>30 jours — faible en sucre, riche en fibres</p>
+                </div>
+                <span>›</span>
+            </div>
+            <div class="carte-regime" data-regime="coeur">
+                <span class="icone">❤️</span>
+                <div>
+                    <h3>Santé cardiaque</h3>
+                    <p>30 jours — repas légers, légumes</p>
+                </div>
+                <span>›</span>
+            </div>
+            <div class="carte-regime" data-regime="poids">
+                <span class="icone">⚖️</span>
+                <div>
+                    <h3>Perte de poids</h3>
+                    <p>30 jours — portions contrôlées</p>
+                </div>
+                <span>›</span>
+            </div>
+            <div class="carte-regime" data-regime="muscle">
+                <span class="icone">💪</span>
+                <div>
+                    <h3>Renforcement musculaire</h3>
+                    <p>30 jours — riche en protéines</p>
+                </div>
+                <span>›</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Écran FAVORIS -->
+    <div id="ecran-favoris" class="ecran">
+        <h1>Mes favoris</h1>
+        <div id="conteneur-favoris">
+            <div class="etat-vide">
+                <span>❤️</span>
+                <h3>Aucune recette sauvegardée</h3>
+                <p>Clique sur le cœur d'un repas pour l'ajouter</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Écran COMMANDES -->
+    <div id="ecran-commandes" class="ecran">
+        <h1>Packs & Courses</h1>
+        <div class="liste-packs">
+            <div class="carte-pack">
+                <span>📦</span>
+                <div>
+                    <h3>Pack repas prêt à consommer</h3>
+                    <p>Repas africains prêts</p>
+                    <strong>KES 850</strong>
+                </div>
+                <button>Commander</button>
+            </div>
+            <div class="carte-pack">
+                <span>🎓</span>
+                <div>
+                    <h3>Pack étudiant</h3>
+                    <p>Pack économique hebdomadaire</p>
+                    <strong>KES 1 500</strong>
+                </div>
+                <button>Commander</button>
+            </div>
+            <div class="carte-pack">
+                <span>👨‍👩‍👧</span>
+                <div>
+                    <h3>Pack familial hebdomadaire</h3>
+                    <p>Ingrédients et repas complets</p>
+                    <strong>KES 4 800</strong>
+                </div>
+                <button>Commander</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barre de navigation -->
+    <nav class="nav-bas">
+        <button class="btn-nav actif" data-ecran="menu">
+            <span>📅</span> Menu
+        </button>
+        <button class="btn-nav" data-ecran="regimes">
+            <span>🛡️</span> Régimes
+        </button>
+        <button class="btn-nav" data-ecran="favoris">
+            <span>❤️</span> Favoris
+        </button>
+        <button class="btn-nav" data-ecran="commandes">
+            <span>🛒</span> Commandes
+        </button>
+    </nav>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
