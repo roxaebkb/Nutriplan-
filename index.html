@@ -1,688 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NutriPlan — 30 Days African Meal Plans</title>
-  
-  <!-- Icône dans l'onglet du navigateur -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍲</text></svg>" />
-  
-  <style>
-    :root {
-      --bg: #FFF9EF;
-      --card: #FFFFFF;
-      --text-dark: #4A2C2A;
-      --text-light: #8C756E;
-      --accent: #D47B4D;
-      --accent-light: #FDE4D4;
-      --progress-bg: #2C1F1A;
-      --border-radius-lg: 24px;
-      --border-radius-md: 16px;
-      --border-radius-sm: 12px;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Roboto, sans-serif;
-    }
-    body {
-      background-color: var(--bg);
-      color: var(--text-dark);
-      line-height: 1.5;
-      padding-bottom: 90px;
-      max-width: 420px;
-      margin: 0 auto;
-      min-height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    /* === PAGE SYSTEM === */
-    .page { display: none; min-height: calc(100vh - 90px); }
-    .page.active { display: block; }
+    <title>NutriPlan</title>
 
-    /* === PAGE DE COUVERTURE / ACCUEIL === */
-    .cover-page {
-      padding: 20px;
-      text-align: center;
-    }
-    .cover-image {
-      width: 100%;
-      border-radius: var(--border-radius-lg);
-      overflow: hidden;
-      margin-bottom: 28px;
-      background: var(--accent-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-    }
-    .cover-image-icon {
-      font-size: 80px;
-      margin-bottom: 10px;
-    }
-    .cover-title {
-      font-size: 2rem;
-      line-height: 1.2;
-      margin-bottom: 16px;
-      color: var(--text-dark);
-    }
-    .cover-desc {
-      color: var(--text-light);
-      line-height: 1.6;
-      padding: 0 10px;
-      margin-bottom: 32px;
-    }
-    .get-started-btn {
-      width: 100%;
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 16px;
-      border-radius: var(--border-radius-md);
-      font-size: 1.05rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .get-started-btn:hover { transform: translateY(-2px); }
-
-    /* === TITRE PAGE === */
-    .page-title {
-      padding: 16px 20px;
-      font-size: 1.3rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .back-btn {
-      background: var(--card);
-      border: none;
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      font-size: 18px;
-      cursor: pointer;
-      color: var(--text-dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* === EN-TÊTE RÉGIME (orange) === */
-    .diet-header-card {
-      margin: 0 20px 16px;
-      background: var(--accent);
-      color: white;
-      border-radius: var(--border-radius-md);
-      padding: 16px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-    .diet-header-icon {
-      font-size: 24px;
-      background: rgba(255,255,255,0.25);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .diet-header-text h2 {
-      font-size: 1.05rem;
-      margin-bottom: 4px;
-    }
-    .diet-header-text p {
-      font-size: 0.88rem;
-      opacity: 0.9;
-      line-height: 1.4;
-    }
-
-    /* === SÉLECTEUR DE JOURS — 30 jours === */
-    .days-wrapper {
-      padding: 0 20px;
-      margin-bottom: 16px;
-    }
-    .days-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-    }
-    .day-btn {
-      min-height: 54px;
-      border-radius: var(--border-radius-sm);
-      border: none;
-      background: var(--card);
-      color: var(--text-dark);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.9rem;
-      padding: 6px 4px;
-    }
-    .day-btn.active {
-      background: var(--accent);
-      color: white;
-    }
-
-    /* === BARRE DE PROGRESSION === */
-    .progress-section {
-      margin: 0 20px 20px;
-      background: var(--progress-bg);
-      color: white;
-      padding: 18px;
-      border-radius: var(--border-radius-md);
-    }
-    .progress-label {
-      font-size: 0.85rem;
-      opacity: 0.7;
-      margin-bottom: 6px;
-    }
-    .progress-day {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .progress-bar-container {
-      width: 100%;
-      height: 8px;
-      background: #5A483F;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      width: 3.33%;
-      background: var(--accent);
-      border-radius: 4px;
-      transition: width 0.3s ease;
-    }
-
-    /* === TITRE SECTION === */
-    .section-title {
-      padding: 0 20px 12px;
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-
-    /* === CARTES REPAS === */
-    .meals-container {
-      padding: 0 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .meal-card {
-      background: var(--card);
-      border-radius: var(--border-radius-md);
-      padding: 14px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    }
-    .meal-icon-box {
-      width: 52px;
-      height: 52px;
-      border-radius: 12px;
-      background: var(--accent-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      flex-shrink: 0;
-    }
-    .meal-content {
-      flex: 1;
-    }
-    .meal-type {
-      font-size: 0.85rem;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 3px;
-    }
-    .meal-name {
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 3px;
-      line-height: 1.3;
-    }
-    .meal-meta {
-      font-size: 0.8rem;
-      color: var(--text-light);
-    }
-    .meal-fav {
-      font-size: 20px;
-      color: #D4B5A8;
-      cursor: pointer;
-      transition: all 0.2s;
-      user-select: none;
-    }
-    .meal-fav.active {
-      color: var(--accent);
-      font-weight: bold;
-    }
-
-    /* === LISTE DES RÉGIMES === */
-    .plans-container {
-      padding: 0 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .plan-card {
-      background: var(--card);
-      border-radius: var(--border-radius-md);
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .plan-card:hover { transform: translateY(-2px); }
-    .plan-icon-box {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--accent-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-    .plan-content { flex: 1; }
-    .plan-name { font-weight: 600; font-size: 1rem; margin-bottom: 3px; }
-    .plan-desc { font-size: 0.85rem; color: var(--text-light); line-height: 1.4; }
-    .plan-arrow { color: var(--text-light); font-size: 18px; }
-
-    /* === PAGE SAUVEGARDÉES === */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-light);
-    }
-    .empty-icon {
-      font-size: 60px;
-      margin-bottom: 16px;
-      color: #E8D0C2;
-    }
-
-    /* === BARRE DE NAVIGATION EN BAS === */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 420px;
-      background: var(--card);
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-      z-index: 100;
-    }
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      background: transparent;
-      border: none;
-      color: var(--text-light);
-      font-size: 0.7rem;
-      cursor: pointer;
-      padding: 6px 14px;
-      border-radius: 10px;
-      transition: all 0.2s;
-    }
-    .nav-item.active {
-      background: var(--accent-light);
-      color: var(--accent);
-    }
-    .nav-icon { font-size: 20px; }
-  </style>
+    <link rel="icon" type="image/png" href="assets/nutriplan-icon.png">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <!-- ===================================== -->
-  <!-- PAGE 0 : COUVERTURE / ACCUEIL        -->
-  <!-- ===================================== -->
-  <div id="homePage" class="page active cover-page">
-    <div class="cover-image">
-      <div>
-        <div class="cover-image-icon">🍲</div>
-        <p style="color:var(--text-light); font-size:0.9rem;">African Cuisine</p>
-      </div>
+<div class="app-container">
+
+    <header class="header">
+        <div>
+            <p class="welcome">Welcome to</p>
+            <h1>NutriPlan</h1>
+        </div>
+
+        <button class="profile-button">
+            👤
+        </button>
+    </header>
+
+    <!-- MONTHLY MENU -->
+    <section id="monthlyPage" class="page active-page">
+
+        <section class="days-section">
+
+            <div class="section-header">
+                <h2>Monthly Menu</h2>
+                <span>30 days</span>
+            </div>
+
+            <div id="daysContainer" class="days-container"></div>
+
+        </section>
+
+        <section class="selected-date">
+            <h2 id="selectedDayTitle">Day 1</h2>
+            <p>Today's meals</p>
+        </section>
+
+        <main id="mealsContainer" class="meals-container"></main>
+
+    </section>
+
+    <section id="dietsPage" class="page">
+
+    <!-- List of diets -->
+    <div id="dietListView" class="page-content">
+
+        <h2>Special Diets</h2>
+
+        <p class="page-description">
+            Choose a meal plan adapted to your dietary needs.
+        </p>
+
+        <div class="diet-grid">
+
+            <button class="diet-card" data-diet="vegetarian">
+                <div class="diet-icon">🥗</div>
+                <h3>Vegetarian</h3>
+                <p>Meals without meat or fish.</p>
+            </button>
+
+            <button class="diet-card" data-diet="diabetic">
+                <div class="diet-icon">🩺</div>
+                <h3>Diabetic</h3>
+                <p>Balanced meals with controlled sugar intake.</p>
+            </button>
+
+           <button class="diet-card" data-diet="weightGain">
+                <div class="diet-icon">📈</div>
+                <h3>Weight Gain</h3>
+                <p>Higher-calorie balanced meals to support healthy weight gain.</p>
+          </button>
+
+          <button class="diet-card" data-diet="weightLoss">
+                <div class="diet-icon">📉</div>
+                <h3>Weight Loss</h3>
+                <p>Balanced lower-calorie meals to support healthy weight loss.</p>
+          </button>
+
+            <button class="diet-card" data-diet="highProtein">
+                <div class="diet-icon">💪</div>
+                <h3>High Protein</h3>
+                <p>Protein-rich meals for active lifestyles.</p>
+            </button>
+
+        </div>
+
     </div>
-    <h1 class="cover-title">Plan your meals for 30 days</h1>
-    <p class="cover-desc">African meal ideas for breakfast, lunch, and dinner. Save your favorites and explore 30-day special diet plans.</p>
-    <button class="get-started-btn" onclick="goToMenu()">Get Started</button>
-  </div>
 
-  <!-- ===================================== -->
-  <!-- PAGE 1 : MENU MENSUEL                -->
-  <!-- ===================================== -->
-  <div id="menuPage" class="page">
-    <h1 class="page-title">My Monthly Menu</h1>
-    <div class="days-wrapper"><div class="days-grid" id="menuDaysGrid"></div></div>
-    <div class="progress-section">
-      <p class="progress-label">Month progress</p>
-      <p class="progress-day" id="menuProgressDay">Day 1 of 30</p>
-      <div class="progress-bar-container"><div class="progress-bar-fill" id="menuProgressBar"></div></div>
+
+    <!-- Selected diet -->
+    <div id="dietMenuView" class="page-content hidden">
+
+        <button id="backToDiets" class="back-button">
+            ← Back
+        </button>
+
+        <div class="diet-title">
+
+            <div>
+                <p class="diet-label">
+                    Special Diet
+                </p>
+
+                <h2 id="selectedDietName">
+                    Vegetarian
+                </h2>
+            </div>
+
+            <span id="selectedDietIcon" class="selected-diet-icon">
+                🥗
+            </span>
+
+        </div>
+
+        <div
+            id="dietDaysContainer"
+            class="days-container"
+        ></div>
+
+
+        <section class="selected-date">
+
+            <h2 id="selectedDietDayTitle">
+                Day 1
+            </h2>
+
+            <p>
+                Today's meals
+            </p>
+
+        </section>
+
+
+        <div
+            id="dietMealsContainer"
+            class="meals-container"
+        ></div>
+
     </div>
-    <h2 class="section-title">Today's meals</h2>
-    <div id="menuMealsContainer" class="meals-container"></div>
-  </div>
 
-  <!-- ===================================== -->
-  <!-- PAGE 2 : LISTE DES RÉGIMES SPÉCIAUX  -->
-  <!-- ===================================== -->
-  <div id="dietsPage" class="page">
-    <h1 class="page-title">Special Diet Plans</h1>
-    <div class="plans-container">
-      <div class="plan-card" onclick="openDietPlan('diabetes')">
-        <div class="plan-icon-box">💧</div>
-        <div class="plan-content">
-          <div class="plan-name">Diabetes Friendly</div>
-          <div class="plan-desc">30 days of lower sugar meals with fiber and balanced portions</div>
+</section>
+    <!-- SAVED -->
+    <section id="savedPage" class="page">
+
+        <div class="page-content">
+
+            <h2>Saved Meals</h2>
+
+            <p class="page-description">
+                Your favorite meals appear here.
+            </p>
+
+            <div id="savedMealsContainer" class="meals-container"></div>
+
         </div>
-        <span class="plan-arrow">›</span>
-      </div>
-      <div class="plan-card" onclick="openDietPlan('heart')">
-        <div class="plan-icon-box">❤️</div>
-        <div class="plan-content">
-          <div class="plan-name">Heart Healthy</div>
-          <div class="plan-desc">30 days of lighter meals with vegetables and less oil</div>
+
+    </section>
+
+    <!-- ORDERS -->
+    <section id="ordersPage" class="page">
+
+        <div class="page-content">
+
+            <h2>Orders</h2>
+
+            <p class="page-description">
+                View your meal orders.
+            </p>
+
+            <div id="ordersContainer">
+
+                <div class="empty-state">
+                    <div class="empty-icon">🛍️</div>
+                    <h3>No orders yet</h3>
+                    <p>Your meal orders will appear here.</p>
+                </div>
+
+            </div>
+
         </div>
-        <span class="plan-arrow">›</span>
-      </div>
-      <div class="plan-card" onclick="openDietPlan('weight-loss')">
-        <div class="plan-icon-box">⚖️</div>
-        <div class="plan-content">
-          <div class="plan-name">Weight Loss</div>
-          <div class="plan-desc">30 days of simple meals with vegetables and controlled portions</div>
-        </div>
-        <span class="plan-arrow">›</span>
-      </div>
-      <div class="plan-card" onclick="openDietPlan('weight-gain')">
-        <div class="plan-icon-box">📈</div>
-        <div class="plan-content">
-          <div class="plan-name">Weight Gain</div>
-          <div class="plan-desc">30 days of energy-rich meals for healthy weight gain</div>
-        </div>
-        <span class="plan-arrow">›</span>
-      </div>
-      <div class="plan-card" onclick="openDietPlan('muscle')">
-        <div class="plan-icon-box">💪</div>
-        <div class="plan-content">
-          <div class="plan-name">Muscle Building</div>
-          <div class="plan-desc">30 days of protein-focused meals with strong carbohydrates</div>
-        </div>
-        <span class="plan-arrow">›</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- ===================================== -->
-  <!-- PAGE 2B : DETAIL RÉGIME SÉLECTIONNÉ -->
-  <!-- ===================================== -->
-  <div id="dietDetailPage" class="page">
-    <h1 class="page-title">
-      <button class="back-btn" onclick="goBackToDiets()">←</button>
-      <span id="dietDetailTitle">Diet Plan</span>
-    </h1>
-    <div class="diet-header-card">
-      <div class="diet-header-icon" id="dietDetailIcon">🩸</div>
-      <div class="diet-header-text">
-        <h2 id="dietDetailName">Diabetes Friendly</h2>
-        <p id="dietDetailDesc">30 days of lower sugar meals with fiber and balanced portions</p>
-      </div>
-    </div>
-    <div class="days-wrapper"><div class="days-grid" id="dietDaysGrid"></div></div>
-    <div class="progress-section">
-      <p class="progress-label">Month progress</p>
-      <p class="progress-day" id="dietProgressDay">Day 1 of 30</p>
-      <div class="progress-bar-container"><div class="progress-bar-fill" id="dietProgressBar"></div></div>
-    </div>
-    <h2 class="section-title">Diet meals</h2>
-    <div id="dietMealsContainer" class="meals-container"></div>
-  </div>
+    </section>
 
-  <!-- ===================================== -->
-  <!-- PAGE 3 : RECETTES SAUVEGARDÉES       -->
-  <!-- ===================================== -->
-  <div id="savedPage" class="page">
-    <h1 class="page-title">Saved Recipes</h1>
-    <div id="savedContainer"></div>
-  </div>
 
-  <!-- ===================================== -->
-  <!-- BARRE DE NAVIGATION EN BAS           -->
-  <!-- ===================================== -->
-  <nav class="bottom-nav">
-    <button class="nav-item" data-page="menu">
-      <span class="nav-icon">📅</span><span>Menu</span>
-    </button>
-    <button class="nav-item" data-page="diets">
-      <span class="nav-icon">🛡️</span><span>Diets</span>
-    </button>
-    <button class="nav-item" data-page="saved">
-      <span class="nav-icon">🤍</span><span>Saved</span>
-    </button>
-    <button class="nav-item" data-page="orders">
-      <span class="nav-icon">🛍️</span><span>Orders</span>
-    </button>
-  </nav>
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
 
-<script>
-// ==========================================
-// DONNÉES DES REPAS
-// ==========================================
-const MEAL_DATA = {
-  general: {
-    name: "My Monthly Menu",
-    days: {
-      1: { breakfast:{n:"Sweet Potatoes with Milk",t:"25 min",k:"390 kcal",i:"🍠"}, lunch:{n:"Rice and Beans with Avocado",t:"45 min",k:"650 kcal",i:"🥑"}, dinner:{n:"Ugali and Sukuma Wiki",t:"35 min",k:"520 kcal",i:"🥬"} },
-      2: { breakfast:{n:"Oat Porridge with Banana and Milk",t:"15 min",k:"430 kcal",i:"🥣"}, lunch:{n:"Kenyan Pilau with Chicken",t:"55 min",k:"720 kcal",i:"🍗"}, dinner:{n:"Cassava Leaves with Peanut Sauce",t:"40 min",k:"580 kcal",i:"🍛"} },
-      3: { breakfast:{n:"Maize Meal Porridge with Groundnuts",t:"18 min",k:"410 kcal",i:"🥜"}, lunch:{n:"Matoke with Beans Stew",t:"50 min",k:"680 kcal",i:"🍌"}, dinner:{n:"Fish and Ugali",t:"45 min",k:"600 kcal",i:"🐟"} },
-      4: { breakfast:{n:"Banana and Groundnut Paste",t:"12 min",k:"380 kcal",i:"🍌"}, lunch:{n:"Rice and Beef Stew",t:"60 min",k:"750 kcal",i:"🥩"}, dinner:{n:"Ndizi na Samaki",t:"40 min",k:"550 kcal",i:"🍌"} },
-      5: { breakfast:{n:"Arrowroot Porridge",t:"20 min",k:"360 kcal",i:"🥔"}, lunch:{n:"Chapati and Bean Curry",t:"50 min",k:"690 kcal",i:"🫓"}, dinner:{n:"Coconut Rice and Greens",t:"35 min",k:"570 kcal",i:"🥥"} }
-    }
-  },
-  diabetes: {
-    name: "Diabetes Friendly", icon: "💧", desc: "30 days of lower sugar meals with fiber and balanced portions",
-    days: {
-      1: { breakfast:{n:"Sweet Potatoes with Milk",t:"25 min",k:"390 kcal",i:"🍠"}, lunch:{n:"Rice and Beans with Avocado",t:"45 min",k:"650 kcal",i:"🥑"}, dinner:{n:"Ugali (small portion) + Greens",t:"35 min",k:"480 kcal",i:"🥬"} },
-      2: { breakfast:{n:"Millet Porridge without Sugar",t:"20 min",k:"350 kcal",i:"🌾"}, lunch:{n:"Brown Rice + Lentils + Okra",t:"50 min",k:"620 kcal",i:"🫘"}, dinner:{n:"Grilled Tilapia + Vegetables",t:"40 min",k:"500 kcal",i:"🐟"} }
-    }
-  },
-  heart: {
-    name: "Heart Healthy", icon: "❤️", desc: "30 days of lighter meals with vegetables and less oil",
-    days: {
-      1: { breakfast:{n:"Oat Porridge with Banana and Milk",t:"15 min",k:"430 kcal",i:"🥣"}, lunch:{n:"Rice and Beans with Avocado",t:"45 min",k:"650 kcal",i:"🥑"}, dinner:{n:"Steamed Fish + Greens",t:"35 min",k:"490 kcal",i:"🐟"} }
-    }
-  },
-  'weight-loss': {
-    name: "Weight Loss", icon: "⚖️", desc: "30 days of simple meals with vegetables and controlled portions",
-    days: {
-      1: { breakfast:{n:"Sweet Potatoes with Milk",t:"25 min",k:"390 kcal",i:"🍠"}, lunch:{n:"Rice and Beans with Avocado",t:"45 min",k:"650 kcal",i:"🥑"}, dinner:{n:"Vegetable Stew + Ugali (small)",t:"30 min",k:"420 kcal",i:"🥬"} }
-    }
-  },
-  'weight-gain': {
-    name: "Weight Gain", icon: "📈", desc: "30 days of energy-rich meals for healthy weight gain",
-    days: {
-      1: { breakfast:{n:"Arrowroot Porridge + Groundnuts",t:"20 min",k:"520 kcal",i:"🥔"}, lunch:{n:"Pilau with Chicken + Coconut",t:"55 min",k:"850 kcal",i:"🍗"}, dinner:{n:"Ugali + Beef Stew + Greens",t:"45 min",k:"720 kcal",i:"🥩"} }
-    }
-  },
-  muscle: {
-    name: "Muscle Building", icon: "💪", desc: "30 days of protein-focused meals with strong carbohydrates",
-    days: {
-      1: { breakfast:{n:"Sweet Potatoes + Eggs",t:"20 min",k:"480 kcal",i:"🥚"}, lunch:{n:"Brown Rice + Grilled Chicken + Beans",t:"50 min",k:"780 kcal",i:"🍗"}, dinner:{n:"Ugali + Fish + Greens",t:"45 min",k:"650 kcal",i:"🐟"} }
-    }
-  }
-};
+        <button class="nav-item active" data-page="monthlyPage">
+            <span class="nav-icon">🍽️</span>
+            <span>Monthly Menu</span>
+        </button>
 
-// ==========================================
-// ÉTAT GLOBAL
-// ==========================================
-let currentPage = 'home';
-let currentPlan = 'general';
-let currentDay = 1;
-let savedMeals = JSON.parse(localStorage.getItem('nutriplan_saved') || '[]');
+        <button class="nav-item" data-page="dietsPage">
+            <span class="nav-icon">🥗</span>
+            <span>Special Diets</span>
+        </button>
 
-// ==========================================
-// GÉNÉRER LES 30 JOURS
-// ==========================================
-function renderDaysGrid(containerId) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-  for (let d = 1; d <= 30; d++) {
-    const btn = document.createElement('button');
-    btn.className = 'day-btn' + (d === currentDay ? ' active' : '');
-    btn.textContent = 'Day ' + d;
-    btn.dataset.day = d;
-    btn.onclick = () => { currentDay = d; renderCurrentView(); };
-    container.appendChild(btn);
-  }
-}
+        <button class="nav-item" data-page="savedPage">
+            <span class="nav-icon">❤️</span>
+            <span>Saved</span>
+        </button>
 
-// ==========================================
-// RENDRE LES CARTES REPAS
-// ==========================================
-function renderMeals(containerId, progressDayId, progressBarId) {
-  const plan = MEAL_DATA[currentPlan];
-  const dayData = plan.days[currentDay] || plan.days[1];
-  const container = document.getElementById(containerId);
+        <button class="nav-item" data-page="ordersPage">
+            <span class="nav-icon">🛍️</span>
+            <span>Orders</span>
+        </button>
 
-  document.getElementById(progressDayId).textContent = `Day ${currentDay} of 30`;
-  document.getElementById(progressBarId).style.width = `${(currentDay/30)*100}%`;
+    </nav>
 
-  container.innerHTML = '';
-  ['breakfast','lunch','dinner'].forEach(type => {
-    const m = dayData[type];
-    const isSaved = savedMeals.some(s => s.name === m.n);
-    container.innerHTML += `
-      <div class="meal-card">
-        <div class="meal-icon-box">${m.i}</div>
-        <div class="meal-content">
-          <div class="meal-type">${type.charAt(0).toUpperCase()+type.slice(1)}</div>
-          <div class="meal-name">${m.n}</div>
-          <div class="meal-meta">${m.t} • ${m.k}</div>
-        </div>
-        <span class="meal-fav ${isSaved?'active':''}" onclick="toggleSave('${m.n}',this)">♡</span>
-      </div>
-    `;
-  });
-}
+</div>
 
-// ==========================================
-// BASCULER ENREGISTREMENT / COEUR
-// ==========================================
-function toggleSave(mealName, iconEl) {
-  const idx = savedMeals.findIndex(s => s.name === mealName);
-  if (idx >= 0) {
-    savedMeals.splice(idx,1);
-    iconEl.classList.remove('active');
-  } else {
-    savedMeals.unshift({ name: mealName });
-    iconEl.classList.add('active');
-  }
-  localStorage.setItem('nutriplan_saved', JSON.stringify(savedMeals));
-  renderSavedPage();
-}
+<script src="app.js"></script>
 
-// ==========================================
-// AFFICHER LA PAGE DES SAUVEGARDÉES
-// ==========================================
-function renderSavedPage() {
-  const c = document.getElementById('savedContainer');
-  if (savedMeals.length === 0) {
-    c.innerHTML = `<div class="empty-state"><div class="empty-icon">♡</div><h3>No saved recipes yet</h3><p>Tap the heart icon on any meal to save it here.</p></div>`;
-    return;
-  }
-  c.innerHTML = '';
-  savedMeals.forEach(m => {
-    c.innerHTML += `
-      <div class="meal-card">
-        <div class="meal-icon-box">🍽️</div>
-        <div class="meal-content"><div class="meal-name">${m.name}</div></div>
-        <span class="meal-fav active" onclick="removeSaved('${m.name}',this)">♡</span>
-      </div>
-    `;
-  });
-}
-function removeSaved(name, el) {
-  savedMeals = savedMeals.filter(s => s.name !== name);
-  localStorage.setItem('nutriplan_saved', JSON.stringify(savedMeals));
-  renderSavedPage();
-}
-
-// ==========================================
-// NAVIGATION ENTRE LES PAGES
-// ==========================================
-function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(b => {
-    if (b.dataset.page === pageId.split('Page')[0] || 
-       (pageId==='dietDetailPage' && b.dataset.page==='diets')) b.classList.add('active');
-  });
-  currentPage = pageId;
-}
-
-function goToMenu() {
-  currentPlan = 'general'; currentDay = 1;
-  showPage('menuPage'); renderCurrentView();
-}
-
-function openDietPlan(planId) {
-  currentPlan = planId; currentDay = 1;
-  const p = MEAL_DATA[planId];
-  document.getElementById('dietDetailTitle').textContent = p.name;
-  document.getElementById('dietDetailName').textContent = p.name;
-  document.getElementById('dietDetailDesc').textContent = p.desc;
-  document.getElementById('dietDetailIcon').textContent = p.icon;
-  showPage('dietDetailPage'); renderCurrentView();
-}
-
-function goBackToDiets() { showPage('dietsPage'); }
-
-function renderCurrentView() {
-  if (currentPage === 'menuPage') {
-    renderDaysGrid('menuDaysGrid');
-    renderMeals('menuMealsContainer','menuProgressDay','menuProgressBar');
-  } else if (currentPage === 'dietDetailPage') {
-    renderDaysGrid('dietDaysGrid');
-    renderMeals('dietMealsContainer','dietProgressDay','dietProgressBar');
-  } else if (currentPage === 'savedPage') {
-    renderSavedPage();
-  }
-}
-
-// Navigation basse
-document.querySelectorAll('.nav-item').forEach(btn => {
-  btn.onclick = () => {
-    const p = btn.dataset.page;
-    if (p==='menu') { currentPlan='general'; currentDay=1; showPage('menuPage'); }
-    else if (p==='diets') { showPage('dietsPage'); }
-    else if (p==='saved') { showPage('savedPage'); renderSavedPage(); }
-    else if (p==='orders') { alert('Orders page coming soon!'); return; }
-    renderCurrentView();
-  };
-});
-
-// Initialisation
-document.querySelector('[data-page="menu"]').classList.remove('active');
-</script>
 </body>
 </html>
