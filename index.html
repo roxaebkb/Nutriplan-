@@ -11,6 +11,270 @@
 </head>
 
 <body>
+    <section id="profilePage" class="page">
+
+    <div class="page-content">
+
+        <button id="backFromProfile" class="back-button">
+            ← Back
+        </button>
+
+        <h2>Your Nutrition Profile</h2>
+
+        <p class="page-description">
+            Tell NutriPlan about yourself so we can estimate
+            your daily calorie needs.
+        </p>
+
+
+        <form id="nutritionProfileForm" class="profile-form">
+
+            <div class="form-group">
+
+                <label for="userAge">
+                    Age
+                </label>
+
+                <input
+                    type="number"
+                    id="userAge"
+                    min="18"
+                    max="100"
+                    placeholder="Example: 25"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="userSex">
+                    Sex
+                </label>
+
+                <select id="userSex" required>
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option value="male">
+                        Male
+                    </option>
+
+                    <option value="female">
+                        Female
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="userWeight">
+                        Weight (kg)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="userWeight"
+                        min="30"
+                        max="250"
+                        step="0.1"
+                        placeholder="70"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="userHeight">
+                        Height (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="userHeight"
+                        min="120"
+                        max="230"
+                        placeholder="175"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="activityLevel">
+                    Activity level
+                </label>
+
+                <select
+                    id="activityLevel"
+                    required
+                >
+
+                    <option value="">
+                        Select activity level
+                    </option>
+
+                    <option value="1.2">
+                        Sedentary
+                    </option>
+
+                    <option value="1.375">
+                        Lightly active
+                    </option>
+
+                    <option value="1.55">
+                        Moderately active
+                    </option>
+
+                    <option value="1.725">
+                        Very active
+                    </option>
+
+                    <option value="1.9">
+                        Extremely active
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="nutritionGoal">
+                    Your goal
+                </label>
+
+                <select
+                    id="nutritionGoal"
+                    required
+                >
+
+                    <option value="">
+                        Select your goal
+                    </option>
+
+                    <option value="loss">
+                        Weight Loss
+                    </option>
+
+                    <option value="maintain">
+                        Maintain Weight
+                    </option>
+
+                    <option value="gain">
+                        Weight Gain
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="primary-button"
+            >
+                Calculate My Plan
+            </button>
+
+        </form>
+
+
+        <div
+            id="nutritionResult"
+            class="nutrition-result hidden"
+        >
+
+            <h3>
+                Your NutriPlan Recommendation
+            </h3>
+
+            <div class="calorie-result">
+
+                <span id="targetCalories">
+                    0
+                </span>
+
+                <small>
+                    kcal / day
+                </small>
+
+            </div>
+
+
+            <div class="result-details">
+
+                <div>
+
+                    <span>
+                        Estimated BMR
+                    </span>
+
+                    <strong id="bmrResult">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Maintenance
+                    </span>
+
+                    <strong id="maintenanceResult">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Goal
+                    </span>
+
+                    <strong id="goalResult">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <p id="recommendationText"></p>
+
+
+            <button
+                id="openRecommendedPlan"
+                class="primary-button"
+            >
+                View Recommended Menu
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
 
 <div class="app-container">
 
@@ -20,7 +284,7 @@
             <h1>NutriPlan</h1>
         </div>
 
-        <button class="profile-button">
+        <button id="profileButton" class="profile-button">
             👤
         </button>
     </header>

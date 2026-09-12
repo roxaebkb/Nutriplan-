@@ -2,22 +2,21 @@
 |--------------------------------------------------------------------------
 | NutriPlan
 |--------------------------------------------------------------------------
-| Complete JavaScript for:
-| - Monthly Menu
-| - Special Diets
-| - Favorites
-| - Orders navigation
-|--------------------------------------------------------------------------
 */
 
 
 /*
 |--------------------------------------------------------------------------
-| Helper
+| Meal Helper
 |--------------------------------------------------------------------------
 */
 
-function meal(name, description, calories, emoji) {
+function meal(
+    name,
+    description,
+    calories,
+    emoji
+) {
     return {
         name,
         description,
@@ -29,194 +28,221 @@ function meal(name, description, calories, emoji) {
 
 /*
 |--------------------------------------------------------------------------
-| MAIN MONTHLY MENU
-|--------------------------------------------------------------------------
-| 15 breakfasts + 15 lunches + 15 dinners.
-|
-| During the 30 days, every meal is used exactly twice.
+| Monthly Menu
 |--------------------------------------------------------------------------
 */
 
 const monthlyMealPool = {
 
     breakfasts: [
+
         meal(
             "Mandazi & Tea",
-            "Fresh mandazi served with African tea.",
+            "Fresh mandazi served with milk tea.",
             420,
             "☕"
         ),
+
         meal(
             "Chapati & Omelette",
-            "Soft chapati served with a vegetable omelette.",
+            "Chapati served with a vegetable omelette.",
             460,
             "🍳"
         ),
+
         meal(
             "Oatmeal & Banana",
-            "Oats served with banana and milk.",
-            390,
-            "🥣"
-        ),
-        meal(
-            "Bread, Avocado & Egg",
-            "Whole-grain bread with avocado and boiled egg.",
-            410,
-            "🥑"
-        ),
-        meal(
-            "Cassava & Milk",
-            "Boiled cassava served with warm milk.",
-            400,
-            "🥛"
-        ),
-        meal(
-            "Pancakes & Fruit",
-            "Homemade pancakes with seasonal fruits.",
-            430,
-            "🥞"
-        ),
-        meal(
-            "Millet Porridge",
-            "Traditional millet porridge.",
+            "Warm oatmeal served with banana.",
             350,
             "🥣"
         ),
+
         meal(
-            "Boiled Eggs & Toast",
-            "Eggs served with whole-grain toast.",
-            380,
-            "🍳"
+            "Bread, Avocado & Egg",
+            "Whole-grain bread with avocado and egg.",
+            400,
+            "🥑"
         ),
+
         meal(
-            "Fruit Yogurt Bowl",
-            "Natural yogurt with banana, mango and oats.",
-            360,
-            "🥭"
-        ),
-        meal(
-            "Sweet Potato & Tea",
-            "Boiled sweet potatoes served with tea.",
+            "Cassava & Milk",
+            "Boiled cassava served with milk.",
             390,
-            "🍠"
+            "🥛"
         ),
+
         meal(
-            "Banana Pancakes",
-            "Pancakes prepared with fresh banana.",
+            "Pancakes & Fruit",
+            "Soft pancakes served with fresh fruit.",
             410,
             "🥞"
         ),
+
         meal(
-            "Corn Porridge",
-            "Warm corn porridge with milk.",
+            "Millet Porridge",
+            "Warm millet porridge.",
+            330,
+            "🥣"
+        ),
+
+        meal(
+            "Boiled Eggs & Toast",
+            "Boiled eggs served with toast.",
+            380,
+            "🍳"
+        ),
+
+        meal(
+            "Fruit Yogurt Bowl",
+            "Fresh fruits served with yogurt.",
             340,
             "🥣"
         ),
+
+        meal(
+            "Sweet Potato & Tea",
+            "Boiled sweet potato served with tea.",
+            370,
+            "🍠"
+        ),
+
+        meal(
+            "Banana Pancakes",
+            "Homemade banana pancakes.",
+            400,
+            "🥞"
+        ),
+
+        meal(
+            "Corn Porridge",
+            "Traditional corn porridge.",
+            320,
+            "🥣"
+        ),
+
         meal(
             "Egg Sandwich",
-            "Whole-grain sandwich with egg and vegetables.",
-            400,
+            "Egg sandwich with fresh vegetables.",
+            390,
             "🥪"
         ),
+
         meal(
             "Avocado Toast",
-            "Whole-grain toast topped with fresh avocado.",
+            "Toast topped with fresh avocado.",
             370,
             "🥑"
         ),
+
         meal(
-            "Chapati & Beans",
-            "Chapati served with lightly seasoned beans.",
-            440,
+            "Breakfast Chapati & Beans",
+            "Chapati served with beans.",
+            450,
             "🫘"
         )
     ],
 
+
     lunches: [
+
         meal(
             "Ugali & Grilled Chicken",
             "Ugali served with grilled chicken and vegetables.",
-            720,
+            680,
             "🍗"
         ),
+
         meal(
             "Beef Pilau",
             "Spiced rice cooked with tender beef.",
             700,
             "🍛"
         ),
+
         meal(
             "Fufu & Chicken Stew",
-            "Fufu served with a rich chicken stew.",
-            740,
+            "Fufu served with rich chicken stew.",
+            690,
             "🍲"
         ),
+
         meal(
             "Jollof Rice & Fish",
-            "West African jollof rice served with grilled fish.",
-            680,
-            "🐟"
-        ),
-        meal(
-            "Matoke & Beef",
-            "Traditional matoke cooked with beef.",
-            710,
-            "🍌"
-        ),
-        meal(
-            "Chicken Biryani",
-            "Aromatic basmati rice with spiced chicken.",
-            730,
-            "🍗"
-        ),
-        meal(
-            "Rice & Beef Stew",
-            "Steamed rice served with slow-cooked beef.",
-            690,
-            "🍚"
-        ),
-        meal(
-            "Ugali & Tilapia",
-            "Ugali served with grilled tilapia and sukuma wiki.",
-            700,
-            "🐟"
-        ),
-        meal(
-            "Chapati & Chicken Curry",
-            "Chapati served with chicken curry.",
-            710,
-            "🍛"
-        ),
-        meal(
-            "Fish Curry & Rice",
-            "Fish cooked in curry sauce with steamed rice.",
+            "Jollof rice served with grilled fish.",
             670,
             "🐟"
         ),
+
         meal(
-            "Goat Stew & Ugali",
-            "Tender goat stew served with ugali.",
-            730,
-            "🍲"
-        ),
-        meal(
-            "Beans & Plantain",
-            "Beans served with cooked plantain.",
-            610,
+            "Matoke & Beef",
+            "Matoke cooked with tender beef.",
+            660,
             "🍌"
         ),
+
         meal(
-            "Fried Rice & Chicken",
-            "Vegetable fried rice with grilled chicken.",
-            690,
-            "🍚"
+            "Chicken Biryani",
+            "Spiced biryani rice with chicken.",
+            720,
+            "🍗"
         ),
+
         meal(
-            "Cassava & Fish Stew",
-            "Cassava served with tomato fish stew.",
+            "Rice & Beef Stew",
+            "Rice served with beef stew.",
+            680,
+            "🍲"
+        ),
+
+        meal(
+            "Ugali & Tilapia",
+            "Ugali served with tilapia and vegetables.",
             650,
             "🐟"
         ),
+
+        meal(
+            "Chapati & Chicken Curry",
+            "Chapati served with chicken curry.",
+            700,
+            "🍛"
+        ),
+
+        meal(
+            "Fish Curry & Rice",
+            "Fish curry served with rice.",
+            660,
+            "🐟"
+        ),
+
+        meal(
+            "Goat Stew & Ugali",
+            "Goat stew served with ugali.",
+            710,
+            "🍲"
+        ),
+
+        meal(
+            "Beans & Plantain",
+            "Beans served with cooked plantain.",
+            630,
+            "🍌"
+        ),
+
+        meal(
+            "Fried Rice & Chicken",
+            "Vegetable fried rice served with chicken.",
+            690,
+            "🍚"
+        ),
+
+        meal(
+            "Cassava & Fish Stew",
+            "Cassava served with fish stew.",
+            640,
+            "🐟"
+        ),
+
         meal(
             "Spaghetti Bolognese",
             "Spaghetti served with beef tomato sauce.",
@@ -225,95 +251,111 @@ const monthlyMealPool = {
         )
     ],
 
+
     dinners: [
+
         meal(
             "Vegetable Rice",
-            "Rice cooked with mixed seasonal vegetables.",
-            510,
+            "Rice cooked with mixed vegetables.",
+            480,
             "🍚"
         ),
+
         meal(
             "Sweet Potato & Beans",
-            "Boiled sweet potatoes served with beans.",
+            "Sweet potato served with beans.",
             490,
             "🍠"
         ),
+
         meal(
             "Vegetable Pasta",
-            "Pasta tossed with vegetables and tomato sauce.",
-            520,
+            "Pasta served with vegetables.",
+            500,
             "🍝"
         ),
+
         meal(
             "Pumpkin Soup",
-            "Creamy pumpkin soup served with bread.",
-            430,
-            "🥣"
+            "Creamy pumpkin soup.",
+            390,
+            "🎃"
         ),
+
         meal(
-            "Lentil Curry & Rice",
-            "Lentil curry served with steamed rice.",
-            560,
+            "Dinner Lentil Curry & Rice",
+            "Lentil curry served with rice.",
+            510,
             "🍛"
         ),
+
         meal(
             "Potato Vegetable Stew",
-            "Potatoes cooked with carrots, tomatoes and greens.",
-            500,
+            "Potatoes cooked with mixed vegetables.",
+            470,
             "🥔"
         ),
+
         meal(
             "Grilled Fish & Salad",
-            "Grilled fish served with a fresh vegetable salad.",
-            470,
+            "Grilled fish served with salad.",
+            500,
             "🐟"
         ),
+
         meal(
             "Bean Vegetable Soup",
             "Beans cooked with fresh vegetables.",
-            450,
-            "🍲"
-        ),
-        meal(
-            "Mashed Potatoes & Vegetables",
-            "Creamy mashed potatoes with vegetables.",
-            480,
-            "🥔"
-        ),
-        meal(
-            "Vegetable Chapati Wrap",
-            "Chapati filled with fresh cooked vegetables.",
-            460,
-            "🌯"
-        ),
-        meal(
-            "Rice & Lentils",
-            "Steamed rice served with seasoned lentils.",
-            510,
-            "🍚"
-        ),
-        meal(
-            "Chicken Vegetable Soup",
-            "Light chicken soup with seasonal vegetables.",
             440,
             "🍲"
         ),
+
+        meal(
+            "Mashed Potatoes & Vegetables",
+            "Mashed potatoes served with vegetables.",
+            470,
+            "🥔"
+        ),
+
+        meal(
+            "Vegetable Chapati Wrap",
+            "Chapati filled with fresh vegetables.",
+            460,
+            "🌯"
+        ),
+
+        meal(
+            "Dinner Rice & Lentils",
+            "Rice served with cooked lentils.",
+            490,
+            "🍚"
+        ),
+
+        meal(
+            "Chicken Vegetable Soup",
+            "Chicken soup with mixed vegetables.",
+            470,
+            "🍲"
+        ),
+
         meal(
             "Spinach Pasta",
-            "Pasta cooked with spinach and tomato.",
-            500,
+            "Pasta served with spinach.",
+            480,
             "🍝"
         ),
+
         meal(
             "Pumpkin & Beans",
-            "Pumpkin cooked with seasoned beans.",
-            470,
+            "Pumpkin served with beans.",
+            450,
             "🎃"
         ),
+
         meal(
             "Vegetable Omelette",
-            "Egg omelette filled with fresh vegetables.",
-            410,
+            "Egg omelette with vegetables.",
+            430,
             "🍳"
         )
     ]
@@ -333,90 +375,114 @@ function generateMonthlyMenu() {
     for (let i = 0; i < 30; i++) {
 
         menu.push({
+
             breakfast:
-                monthlyMealPool.breakfasts[i % 15],
+                monthlyMealPool
+                    .breakfasts[
+                        i %
+                        monthlyMealPool
+                            .breakfasts
+                            .length
+                    ],
 
             lunch:
-                monthlyMealPool.lunches[(i + 5) % 15],
+                monthlyMealPool
+                    .lunches[
+                        (i + 5) %
+                        monthlyMealPool
+                            .lunches
+                            .length
+                    ],
 
             dinner:
-                monthlyMealPool.dinners[(i + 10) % 15]
+                monthlyMealPool
+                    .dinners[
+                        (i + 10) %
+                        monthlyMealPool
+                            .dinners
+                            .length
+                    ]
         });
-
     }
 
     return menu;
 }
 
 
-const monthlyMenu = generateMonthlyMenu();
+const monthlyPlans =
+    generateMonthlyMenu();
 
 
 /*
 |--------------------------------------------------------------------------
-| SPECIAL DIETS
+| Special Diet Menus
 |--------------------------------------------------------------------------
 */
 
 const specialDietMenus = {
 
+
     vegetarian: {
 
         name: "Vegetarian",
+
         icon: "🥗",
 
         breakfasts: [
-            meal("Oatmeal & Banana", "Oats with banana and milk.", 360, "🥣"),
-            meal("Avocado Toast", "Whole-grain toast with avocado.", 350, "🥑"),
-            meal("Fruit Yogurt Bowl", "Yogurt, fresh fruit and oats.", 340, "🥭"),
-            meal("Millet Porridge", "Traditional millet porridge.", 330, "🥣"),
-            meal("Sweet Potato & Tea", "Boiled sweet potato with tea.", 370, "🍠"),
-            meal("Vegetable Omelette", "Eggs with tomato and vegetables.", 390, "🍳"),
-            meal("Banana Pancakes", "Fresh banana pancakes.", 400, "🥞"),
-            meal("Cassava & Milk", "Boiled cassava with warm milk.", 380, "🥛"),
-            meal("Apple Cinnamon Oats", "Oats with apple and cinnamon.", 350, "🍎"),
-            meal("Chapati & Beans", "Chapati served with beans.", 420, "🫘"),
-            meal("Fruit Salad & Yogurt", "Fresh fruits with yogurt.", 330, "🍓"),
-            meal("Corn Porridge", "Warm corn porridge with milk.", 320, "🥣"),
-            meal("Bread & Avocado", "Whole-grain bread and avocado.", 360, "🥑"),
-            meal("Pumpkin Pancakes", "Soft pumpkin pancakes.", 380, "🥞"),
-            meal("Rice Porridge", "Warm creamy rice porridge.", 330, "🥣")
+
+            meal("Vegetarian Oat Bowl", "Oats with banana and fruit.", 340, "🥣"),
+            meal("Vegetarian Avocado Toast", "Toast with fresh avocado.", 360, "🥑"),
+            meal("Vegetarian Millet Porridge", "Warm millet porridge.", 320, "🥣"),
+            meal("Fruit Yogurt Bowl", "Fresh fruit with yogurt.", 330, "🍓"),
+            meal("Vegetable Omelette Breakfast", "Eggs with vegetables.", 370, "🍳"),
+            meal("Sweet Potato Breakfast", "Sweet potato served with tea.", 340, "🍠"),
+            meal("Banana Pancakes Breakfast", "Banana pancakes.", 380, "🥞"),
+            meal("Corn Porridge Breakfast", "Corn porridge.", 310, "🥣"),
+            meal("Vegetarian Egg Sandwich", "Egg sandwich with vegetables.", 380, "🥪"),
+            meal("Cassava Breakfast", "Cassava served with milk.", 350, "🥛"),
+            meal("Vegetarian Chapati Beans", "Chapati with beans.", 420, "🫘"),
+            meal("Vegetarian Yogurt Oats", "Yogurt with oats.", 330, "🥣"),
+            meal("Vegetarian Toast Eggs", "Toast with eggs.", 360, "🍳"),
+            meal("Fruit Oat Bowl", "Fresh fruit with oats.", 340, "🍌"),
+            meal("Vegetarian Potato Omelette", "Potato omelette.", 400, "🍳")
         ],
 
         lunches: [
-            meal("Vegetable Jollof Rice", "Jollof rice with mixed vegetables.", 580, "🍚"),
-            meal("Lentil Curry & Rice", "Lentil curry with steamed rice.", 560, "🍛"),
-            meal("Beans & Plantain", "Beans served with cooked plantain.", 590, "🍌"),
-            meal("Vegetable Pasta", "Pasta with tomato and vegetables.", 520, "🍝"),
-            meal("Ugali & Bean Stew", "Ugali with beans and greens.", 600, "🫘"),
-            meal("Vegetable Biryani", "Spiced rice with vegetables.", 570, "🍛"),
-            meal("Matoke & Beans", "Matoke cooked with seasoned beans.", 590, "🍌"),
-            meal("Vegetable Couscous", "Couscous with fresh vegetables.", 510, "🥗"),
-            meal("Chapati & Lentils", "Chapati served with lentils.", 560, "🫓"),
-            meal("Rice & Chickpea Curry", "Rice with chickpea curry.", 550, "🍚"),
-            meal("Sweet Potato & Beans", "Sweet potatoes with beans.", 520, "🍠"),
-            meal("Vegetable Fried Rice", "Rice fried with mixed vegetables.", 540, "🍚"),
-            meal("Cassava & Bean Stew", "Cassava served with bean stew.", 560, "🍲"),
-            meal("Potato Lentil Curry", "Potato and lentil curry.", 530, "🍛"),
-            meal("Plantain Vegetable Stew", "Plantain cooked with vegetables.", 540, "🍌")
+
+            meal("Vegetarian Rice & Beans", "Rice served with beans.", 560, "🍚"),
+            meal("Vegetarian Lentil Curry", "Lentils with rice.", 550, "🍛"),
+            meal("Vegetarian Matoke", "Matoke with vegetables.", 540, "🍌"),
+            meal("Vegetarian Jollof Rice", "Jollof rice with vegetables.", 560, "🍚"),
+            meal("Vegetarian Chapati Curry", "Chapati with vegetable curry.", 570, "🍛"),
+            meal("Vegetarian Pilau", "Vegetable pilau.", 550, "🍚"),
+            meal("Vegetarian Fufu Stew", "Fufu with vegetable stew.", 570, "🍲"),
+            meal("Vegetarian Ugali Greens", "Ugali served with greens.", 530, "🥬"),
+            meal("Vegetarian Pasta", "Pasta with vegetables.", 540, "🍝"),
+            meal("Vegetarian Beans Plantain", "Beans with plantain.", 560, "🍌"),
+            meal("Vegetarian Chickpea Rice", "Chickpeas with rice.", 550, "🫘"),
+            meal("Vegetarian Sweet Potato Bowl", "Sweet potato and vegetables.", 520, "🍠"),
+            meal("Vegetarian Lentil Rice Bowl", "Rice with lentils.", 550, "🍚"),
+            meal("Vegetarian Cassava Beans", "Cassava served with beans.", 540, "🫘"),
+            meal("Vegetarian Vegetable Wrap", "Vegetables wrapped in chapati.", 530, "🌯")
         ],
 
         dinners: [
-            meal("Pumpkin Soup", "Creamy pumpkin soup.", 390, "🎃"),
-            meal("Bean Vegetable Soup", "Bean soup with vegetables.", 430, "🍲"),
-            meal("Vegetable Rice Soup", "Rice soup with fresh vegetables.", 420, "🍚"),
-            meal("Spinach Pasta", "Pasta with spinach and tomato.", 470, "🍝"),
-            meal("Potato Vegetable Stew", "Potatoes with mixed vegetables.", 460, "🥔"),
-            meal("Corn & Bean Salad", "Corn, beans and vegetables.", 410, "🥗"),
-            meal("Lentil Soup", "Seasoned lentil soup.", 420, "🍲"),
-            meal("Vegetable Stir Fry", "Fresh stir-fried vegetables.", 400, "🥦"),
-            meal("Pumpkin & Beans", "Pumpkin cooked with beans.", 440, "🎃"),
-            meal("Tomato Pasta", "Pasta with tomato sauce.", 450, "🍝"),
-            meal("Rice & Lentils", "Rice served with seasoned lentils.", 470, "🍚"),
-            meal("Baked Potatoes & Salad", "Potatoes with fresh salad.", 430, "🥔"),
-            meal("Matoke Vegetable Stew", "Matoke with vegetables.", 440, "🍌"),
-            meal("Sweet Potato Soup", "Sweet potato vegetable soup.", 400, "🍠"),
-            meal("Beans & Rice Bowl", "Rice topped with beans.", 480, "🍚")
+
+            meal("Vegetarian Pumpkin Soup", "Pumpkin soup.", 380, "🎃"),
+            meal("Vegetarian Lentil Soup", "Lentil soup.", 400, "🍲"),
+            meal("Vegetarian Bean Soup", "Bean vegetable soup.", 410, "🫘"),
+            meal("Vegetarian Spinach Pasta", "Spinach with pasta.", 430, "🍝"),
+            meal("Vegetarian Rice Vegetables", "Rice and vegetables.", 420, "🍚"),
+            meal("Vegetarian Sweet Potato Beans", "Sweet potato and beans.", 430, "🍠"),
+            meal("Vegetarian Potato Stew", "Potato vegetable stew.", 410, "🥔"),
+            meal("Vegetarian Omelette Dinner", "Vegetable omelette.", 390, "🍳"),
+            meal("Vegetarian Lentils Greens", "Lentils and leafy greens.", 410, "🥬"),
+            meal("Vegetarian Pumpkin Beans", "Pumpkin and beans.", 420, "🎃"),
+            meal("Vegetarian Vegetable Soup", "Mixed vegetable soup.", 370, "🍲"),
+            meal("Vegetarian Chickpea Salad", "Chickpeas with vegetables.", 400, "🥗"),
+            meal("Vegetarian Bean Salad", "Beans with fresh salad.", 400, "🥗"),
+            meal("Vegetarian Rice Lentils", "Rice and lentils.", 430, "🍚"),
+            meal("Vegetarian Vegetable Wrap Dinner", "Vegetable chapati wrap.", 420, "🌯")
         ]
     },
 
@@ -424,121 +490,194 @@ const specialDietMenus = {
     diabetic: {
 
         name: "Diabetic",
+
         icon: "🩺",
 
         breakfasts: [
-            meal("Oats & Berries", "Unsweetened oats with berries.", 310, "🥣"),
-            meal("Egg & Avocado", "Boiled egg with fresh avocado.", 330, "🥑"),
-            meal("Vegetable Omelette", "Egg omelette with vegetables.", 340, "🍳"),
-            meal("Plain Yogurt & Seeds", "Unsweetened yogurt with seeds.", 300, "🥣"),
-            meal("Whole-Grain Toast & Egg", "Toast served with boiled egg.", 320, "🍞"),
-            meal("Millet Porridge", "Unsweetened millet porridge.", 310, "🥣"),
-            meal("Avocado Toast", "Whole-grain toast with avocado.", 320, "🥑"),
-            meal("Boiled Sweet Potato", "Small serving of sweet potato.", 300, "🍠"),
-            meal("Spinach Omelette", "Eggs cooked with spinach.", 320, "🍳"),
-            meal("Oats & Apple", "Oats with sliced apple.", 310, "🍎"),
-            meal("Plain Yogurt Bowl", "Yogurt with low-sugar fruits.", 300, "🥛"),
-            meal("Egg & Tomato Toast", "Whole-grain toast with egg.", 320, "🍞"),
-            meal("Corn Porridge", "Unsweetened corn porridge.", 300, "🥣"),
-            meal("Scrambled Eggs & Greens", "Eggs with fresh greens.", 330, "🍳"),
-            meal("Avocado & Egg Bowl", "Avocado with boiled egg.", 340, "🥑")
+
+            meal("Diabetic Oats & Berries", "Unsweetened oats with berries.", 290, "🥣"),
+            meal("Diabetic Eggs & Tomato", "Boiled eggs with tomato.", 280, "🍳"),
+            meal("Diabetic Avocado Toast", "Whole-grain toast and avocado.", 300, "🥑"),
+            meal("Diabetic Plain Yogurt", "Plain yogurt with fruit.", 270, "🥣"),
+            meal("Diabetic Vegetable Omelette", "Eggs with vegetables.", 300, "🍳"),
+            meal("Diabetic Millet Porridge", "Unsweetened millet porridge.", 280, "🥣"),
+            meal("Diabetic Sweet Potato Egg", "Sweet potato with egg.", 300, "🍠"),
+            meal("Diabetic Apple Oats", "Oats with apple.", 290, "🍎"),
+            meal("Diabetic Egg Spinach Toast", "Egg and spinach toast.", 300, "🍞"),
+            meal("Diabetic Fruit Yogurt", "Fruit with plain yogurt.", 270, "🍓"),
+            meal("Diabetic Banana Oats", "Oats with banana.", 300, "🍌"),
+            meal("Diabetic Scrambled Eggs", "Eggs with leafy greens.", 290, "🍳"),
+            meal("Diabetic Corn Porridge", "Unsweetened corn porridge.", 270, "🥣"),
+            meal("Diabetic Yogurt Oats", "Plain yogurt and oats.", 280, "🥣"),
+            meal("Diabetic Egg Avocado", "Egg with avocado.", 300, "🥑")
         ],
 
         lunches: [
-            meal("Grilled Chicken Salad", "Chicken with vegetables and greens.", 480, "🥗"),
-            meal("Brown Rice & Fish", "Brown rice with grilled fish.", 520, "🐟"),
-            meal("Beans & Vegetables", "Beans with fresh vegetables.", 490, "🫘"),
-            meal("Ugali & Tilapia", "Moderate ugali with tilapia and greens.", 530, "🐟"),
-            meal("Lentils & Brown Rice", "Lentils served with brown rice.", 500, "🍚"),
-            meal("Chicken & Vegetables", "Grilled chicken with vegetables.", 490, "🍗"),
-            meal("Fish & Sweet Potato", "Fish with boiled sweet potato.", 510, "🐟"),
-            meal("Bean Salad Bowl", "Beans and vegetables.", 460, "🥗"),
-            meal("Chicken Vegetable Soup", "Chicken soup with vegetables.", 450, "🍲"),
-            meal("Matoke & Beans", "Moderate serving of matoke and beans.", 510, "🍌"),
-            meal("Fish Vegetable Stew", "Fish cooked with vegetables.", 480, "🐟"),
-            meal("Grilled Chicken & Brown Rice", "Chicken and brown rice.", 510, "🍗"),
-            meal("Lentil Vegetable Bowl", "Lentils with vegetables.", 470, "🥗"),
-            meal("Beef & Greens", "Lean beef with fresh greens.", 500, "🥩"),
-            meal("Chickpea Salad", "Chickpeas and vegetables.", 450, "🥗")
+
+            meal("Diabetic Chicken Salad", "Grilled chicken with salad.", 420, "🥗"),
+            meal("Diabetic Brown Rice Fish", "Brown rice with grilled fish.", 450, "🐟"),
+            meal("Diabetic Lentil Bowl", "Lentils with vegetables.", 420, "🥗"),
+            meal("Diabetic Chicken Sweet Potato", "Chicken and sweet potato.", 460, "🍗"),
+            meal("Diabetic Bean Salad", "Beans with vegetables.", 400, "🫘"),
+            meal("Diabetic Tilapia Vegetables", "Tilapia and vegetables.", 430, "🐟"),
+            meal("Diabetic Chicken Soup", "Chicken vegetable soup.", 390, "🍲"),
+            meal("Diabetic Brown Rice Beans", "Brown rice and beans.", 440, "🍚"),
+            meal("Diabetic Fish Salad", "Fish with salad.", 410, "🐟"),
+            meal("Diabetic Matoke Beans", "Matoke and beans.", 450, "🍌"),
+            meal("Diabetic Chicken Broccoli", "Chicken with broccoli.", 410, "🥦"),
+            meal("Diabetic Chickpea Salad", "Chickpea salad.", 400, "🥗"),
+            meal("Diabetic Lean Beef Greens", "Lean beef with greens.", 440, "🥩"),
+            meal("Diabetic Lentils Rice", "Lentils with brown rice.", 430, "🍚"),
+            meal("Diabetic Chicken Wrap", "Chicken vegetable wrap.", 440, "🌯")
         ],
 
         dinners: [
-            meal("Vegetable Soup", "Light vegetable soup.", 350, "🍲"),
-            meal("Grilled Fish Salad", "Fish with fresh salad.", 410, "🐟"),
-            meal("Chicken & Spinach", "Chicken breast with spinach.", 430, "🍗"),
-            meal("Lentil Soup", "Lentil soup without added sugar.", 390, "🍲"),
-            meal("Bean Vegetable Soup", "Beans with vegetables.", 400, "🫘"),
-            meal("Egg & Vegetable Salad", "Eggs with mixed vegetables.", 390, "🥗"),
-            meal("Fish & Broccoli", "Grilled fish with broccoli.", 420, "🐟"),
-            meal("Chicken Vegetable Bowl", "Chicken with vegetables.", 420, "🍗"),
-            meal("Pumpkin Soup", "Light pumpkin soup.", 370, "🎃"),
-            meal("Spinach Omelette", "Egg omelette with spinach.", 380, "🍳"),
-            meal("Vegetable Stir Fry", "Low-oil stir-fried vegetables.", 360, "🥦"),
-            meal("Chicken Soup", "Light chicken soup.", 400, "🍲"),
-            meal("Bean Salad", "Beans with greens and tomato.", 380, "🥗"),
-            meal("Fish Vegetable Soup", "Fish soup with vegetables.", 410, "🐟"),
-            meal("Lentils & Greens", "Lentils with leafy vegetables.", 390, "🥬")
+
+            meal("Diabetic Vegetable Soup", "Light vegetable soup.", 320, "🍲"),
+            meal("Diabetic Grilled Fish Salad", "Fish and salad.", 350, "🐟"),
+            meal("Diabetic Chicken Spinach", "Chicken with spinach.", 370, "🍗"),
+            meal("Diabetic Lentil Soup", "Light lentil soup.", 340, "🍲"),
+            meal("Diabetic Bean Soup", "Beans with vegetables.", 350, "🫘"),
+            meal("Diabetic Egg Salad", "Eggs with vegetables.", 340, "🥗"),
+            meal("Diabetic Fish Broccoli", "Fish with broccoli.", 370, "🐟"),
+            meal("Diabetic Chicken Bowl", "Chicken and vegetables.", 380, "🍗"),
+            meal("Diabetic Pumpkin Soup", "Light pumpkin soup.", 320, "🎃"),
+            meal("Diabetic Spinach Omelette", "Spinach omelette.", 340, "🍳"),
+            meal("Diabetic Vegetable Stir Fry", "Mixed vegetables.", 320, "🥦"),
+            meal("Diabetic Light Chicken Soup", "Chicken soup.", 350, "🍲"),
+            meal("Diabetic Dinner Bean Salad", "Beans and vegetables.", 330, "🥗"),
+            meal("Diabetic Fish Soup", "Fish vegetable soup.", 350, "🐟"),
+            meal("Diabetic Lentils Greens", "Lentils and greens.", 340, "🥬")
         ]
     },
 
 
-    peanutFree: {
+    weightGain: {
 
-        name: "Peanut-Free",
-        icon: "🚫🥜",
+        name: "Weight Gain",
+
+        icon: "📈",
 
         breakfasts: [
-            meal("Chapati & Omelette", "Chapati with vegetable omelette.", 440, "🍳"),
-            meal("Oatmeal & Banana", "Oats with banana.", 370, "🥣"),
-            meal("Mandazi & Tea", "Fresh mandazi and tea.", 410, "☕"),
-            meal("Sweet Potato & Milk", "Sweet potato with milk.", 390, "🍠"),
-            meal("Pancakes & Fruit", "Pancakes with fresh fruit.", 410, "🥞"),
-            meal("Avocado Toast", "Toast with avocado.", 350, "🥑"),
-            meal("Millet Porridge", "Traditional millet porridge.", 340, "🥣"),
-            meal("Egg Sandwich", "Egg sandwich with vegetables.", 400, "🥪"),
-            meal("Cassava & Tea", "Boiled cassava and tea.", 370, "☕"),
-            meal("Banana Pancakes", "Banana pancakes.", 400, "🥞"),
-            meal("Fruit Yogurt Bowl", "Yogurt and fresh fruit.", 350, "🥭"),
-            meal("Boiled Eggs & Toast", "Eggs with whole-grain toast.", 380, "🍳"),
-            meal("Rice Porridge", "Warm rice porridge.", 350, "🥣"),
-            meal("Chapati & Beans", "Chapati with beans.", 430, "🫘"),
-            meal("Pumpkin Pancakes", "Pumpkin pancakes.", 390, "🥞")
+
+            meal("Peanut Butter Banana Toast", "Whole-grain toast with peanut butter and banana.", 520, "🍌"),
+            meal("Eggs, Avocado & Chapati", "Eggs with avocado and chapati.", 540, "🍳"),
+            meal("Oats, Banana & Milk", "Oats with banana and whole milk.", 500, "🥣"),
+            meal("Mandazi, Eggs & Tea", "Mandazi with eggs and milk tea.", 550, "☕"),
+            meal("Sweet Potato & Omelette", "Sweet potato and omelette.", 510, "🍠"),
+            meal("Greek Yogurt Granola Bowl", "Yogurt with granola and fruit.", 480, "🥣"),
+            meal("Gain Chapati & Beans", "Chapati with beans.", 530, "🫘"),
+            meal("Banana Pancakes & Yogurt", "Banana pancakes with yogurt.", 520, "🥞"),
+            meal("Avocado Egg Sandwich", "Egg and avocado sandwich.", 510, "🥪"),
+            meal("Gain Cassava & Milk", "Cassava and whole milk.", 490, "🥛"),
+            meal("Rice Porridge & Banana", "Rice porridge with banana.", 470, "🥣"),
+            meal("Chicken Egg Wrap", "Chicken and egg chapati wrap.", 550, "🌯"),
+            meal("Millet Porridge & Eggs", "Millet porridge with eggs.", 500, "🥣"),
+            meal("Fruit Yogurt Oat Bowl", "Fruit, yogurt and oats.", 480, "🥭"),
+            meal("Potato Omelette & Toast", "Potato omelette with toast.", 520, "🍳")
         ],
 
         lunches: [
-            meal("Chicken Biryani", "Chicken biryani prepared without peanuts.", 690, "🍗"),
-            meal("Ugali & Tilapia", "Ugali with tilapia and greens.", 680, "🐟"),
-            meal("Beef Pilau", "Beef pilau prepared without peanuts.", 690, "🍛"),
-            meal("Matoke & Beef", "Matoke with beef stew.", 680, "🍌"),
-            meal("Jollof Rice & Fish", "Jollof rice and grilled fish.", 660, "🐟"),
-            meal("Chicken & Rice", "Chicken served with steamed rice.", 650, "🍗"),
-            meal("Fufu & Fish Stew", "Fufu with fish stew.", 670, "🐟"),
-            meal("Chapati & Chicken Curry", "Chapati with chicken curry.", 680, "🍛"),
-            meal("Goat Stew & Ugali", "Goat stew with ugali.", 700, "🍲"),
-            meal("Fish Pilau", "Pilau rice served with fish.", 650, "🐟"),
-            meal("Beef & Potatoes", "Beef stew with potatoes.", 660, "🥔"),
-            meal("Chicken Pasta", "Chicken pasta in tomato sauce.", 640, "🍝"),
-            meal("Beans & Plantain", "Beans with cooked plantain.", 580, "🍌"),
-            meal("Vegetable Jollof", "Jollof rice with vegetables.", 570, "🍚"),
-            meal("Cassava & Fish", "Cassava served with fish stew.", 630, "🐟")
+
+            meal("Gain Chicken Biryani", "Chicken biryani with vegetables.", 780, "🍗"),
+            meal("Gain Beef Pilau", "Spiced rice with beef.", 760, "🍛"),
+            meal("Gain Ugali & Beef Stew", "Ugali with beef stew.", 790, "🍲"),
+            meal("Gain Jollof Rice & Chicken", "Jollof rice with chicken.", 770, "🍚"),
+            meal("Gain Matoke & Beef", "Matoke with beef.", 750, "🍌"),
+            meal("Gain Fish Curry & Rice", "Fish curry with rice.", 730, "🐟"),
+            meal("Gain Chapati & Chicken Curry", "Chapati and chicken curry.", 760, "🍛"),
+            meal("Gain Goat Stew & Ugali", "Goat stew and ugali.", 790, "🍲"),
+            meal("Gain Chicken Pasta", "Chicken pasta.", 740, "🍝"),
+            meal("Gain Rice Beans Avocado", "Rice, beans and avocado.", 720, "🥑"),
+            meal("Gain Fufu Chicken Stew", "Fufu with chicken stew.", 780, "🍲"),
+            meal("Gain Beef Mashed Potatoes", "Beef with mashed potatoes.", 750, "🥔"),
+            meal("Gain Tilapia & Rice", "Tilapia with rice.", 720, "🐟"),
+            meal("Gain Chicken Sweet Potatoes", "Chicken with sweet potatoes.", 730, "🍠"),
+            meal("Gain Beef Chapati Wrap", "Beef chapati wrap.", 740, "🌯")
         ],
 
         dinners: [
-            meal("Chicken Vegetable Soup", "Chicken and vegetable soup.", 430, "🍲"),
-            meal("Vegetable Pasta", "Pasta with tomato and vegetables.", 480, "🍝"),
-            meal("Grilled Fish & Salad", "Fish with fresh salad.", 450, "🐟"),
-            meal("Lentil Curry & Rice", "Lentil curry with rice.", 510, "🍛"),
-            meal("Pumpkin Soup", "Creamy pumpkin soup.", 400, "🎃"),
-            meal("Rice & Beans", "Rice and seasoned beans.", 490, "🍚"),
-            meal("Potato Vegetable Stew", "Potato vegetable stew.", 460, "🥔"),
-            meal("Chicken & Pumpkin", "Chicken with pumpkin.", 470, "🍗"),
-            meal("Bean Vegetable Soup", "Bean and vegetable soup.", 420, "🍲"),
-            meal("Vegetable Omelette", "Egg omelette with vegetables.", 400, "🍳"),
-            meal("Sweet Potato Soup", "Sweet potato soup.", 400, "🍠"),
-            meal("Tomato Pasta", "Pasta with tomato sauce.", 470, "🍝"),
-            meal("Vegetable Rice", "Rice with mixed vegetables.", 480, "🍚"),
-            meal("Lentil Soup", "Seasoned lentil soup.", 410, "🍲"),
-            meal("Baked Potato Salad", "Baked potato with vegetables.", 440, "🥔")
+
+            meal("Gain Chicken Rice Bowl", "Chicken with rice and vegetables.", 650, "🍗"),
+            meal("Gain Beef & Potatoes", "Beef stew with potatoes.", 670, "🥔"),
+            meal("Gain Fish & Sweet Potato", "Fish with sweet potato.", 620, "🐟"),
+            meal("Gain Lentil Curry & Rice", "Lentils with rice.", 610, "🍛"),
+            meal("Gain Chicken Pasta Dinner", "Chicken pasta.", 650, "🍝"),
+            meal("Gain Beans & Plantain", "Beans with plantain.", 600, "🍌"),
+            meal("Gain Egg Fried Rice", "Egg fried rice.", 610, "🍚"),
+            meal("Gain Chicken Soup Bread", "Chicken soup with bread.", 590, "🍲"),
+            meal("Gain Beef Rice Bowl", "Beef with rice.", 660, "🥩"),
+            meal("Gain Matoke & Chicken", "Matoke with chicken.", 630, "🍌"),
+            meal("Gain Tilapia & Potatoes", "Tilapia with potatoes.", 610, "🐟"),
+            meal("Gain Dinner Chapati Beans", "Chapati with beans.", 620, "🫘"),
+            meal("Gain Chicken Pumpkin", "Chicken with pumpkin.", 590, "🎃"),
+            meal("Gain Dinner Rice Lentils", "Rice with lentils.", 600, "🍚"),
+            meal("Gain Beef Vegetable Pasta", "Beef and vegetable pasta.", 650, "🍝")
+        ]
+    },
+
+
+    weightLoss: {
+
+        name: "Weight Loss",
+
+        icon: "📉",
+
+        breakfasts: [
+
+            meal("Loss Oats & Berries", "Unsweetened oats with berries.", 290, "🥣"),
+            meal("Loss Boiled Eggs & Tomato", "Boiled eggs with tomato.", 280, "🍳"),
+            meal("Loss Avocado Toast", "Whole-grain toast with avocado.", 300, "🥑"),
+            meal("Loss Plain Yogurt & Fruit", "Plain yogurt with fruit.", 270, "🥣"),
+            meal("Loss Vegetable Omelette", "Egg omelette with vegetables.", 300, "🍳"),
+            meal("Loss Millet Porridge", "Unsweetened millet porridge.", 280, "🥣"),
+            meal("Loss Sweet Potato & Egg", "Sweet potato with egg.", 300, "🍠"),
+            meal("Loss Apple Cinnamon Oats", "Oats with apple and cinnamon.", 290, "🍎"),
+            meal("Loss Egg Spinach Toast", "Toast with egg and spinach.", 300, "🍞"),
+            meal("Loss Fruit Salad Yogurt", "Fruit with plain yogurt.", 270, "🍓"),
+            meal("Loss Banana Oat Bowl", "Oats with banana.", 300, "🍌"),
+            meal("Loss Scrambled Eggs Greens", "Eggs with leafy greens.", 290, "🍳"),
+            meal("Loss Corn Porridge", "Unsweetened corn porridge.", 270, "🥣"),
+            meal("Loss Yogurt Oat Bowl", "Plain yogurt with oats.", 280, "🥣"),
+            meal("Loss Egg Avocado Bowl", "Egg with avocado.", 300, "🥑")
+        ],
+
+        lunches: [
+
+            meal("Loss Grilled Chicken Salad", "Chicken breast with vegetables.", 420, "🥗"),
+            meal("Loss Brown Rice & Fish", "Brown rice with grilled fish.", 450, "🐟"),
+            meal("Loss Lentil Vegetable Bowl", "Lentils with vegetables.", 420, "🥗"),
+            meal("Loss Chicken & Sweet Potato", "Chicken and sweet potato.", 460, "🍗"),
+            meal("Loss Bean Salad Bowl", "Beans and vegetables.", 400, "🫘"),
+            meal("Loss Tilapia & Vegetables", "Tilapia with vegetables.", 430, "🐟"),
+            meal("Loss Chicken Vegetable Soup", "Chicken vegetable soup.", 390, "🍲"),
+            meal("Loss Brown Rice & Beans", "Brown rice and beans.", 440, "🍚"),
+            meal("Loss Fish & Salad", "Fish with salad.", 410, "🐟"),
+            meal("Loss Matoke & Beans", "Matoke with beans.", 450, "🍌"),
+            meal("Loss Chicken & Broccoli", "Chicken with broccoli.", 410, "🥦"),
+            meal("Loss Chickpea Salad", "Chickpeas with vegetables.", 400, "🥗"),
+            meal("Loss Lean Beef & Greens", "Lean beef with greens.", 440, "🥩"),
+            meal("Loss Lentils & Brown Rice", "Lentils with brown rice.", 430, "🍚"),
+            meal("Loss Chicken Salad Wrap", "Chicken vegetable wrap.", 440, "🌯")
+        ],
+
+        dinners: [
+
+            meal("Loss Vegetable Soup", "Light vegetable soup.", 320, "🍲"),
+            meal("Loss Grilled Fish Salad", "Fish and salad.", 350, "🐟"),
+            meal("Loss Chicken & Spinach", "Chicken with spinach.", 370, "🍗"),
+            meal("Loss Lentil Soup", "Light lentil soup.", 340, "🍲"),
+            meal("Loss Bean Vegetable Soup", "Beans and vegetables.", 350, "🫘"),
+            meal("Loss Egg Vegetable Salad", "Eggs and vegetables.", 340, "🥗"),
+            meal("Loss Fish & Broccoli", "Fish with broccoli.", 370, "🐟"),
+            meal("Loss Chicken Vegetable Bowl", "Chicken and vegetables.", 380, "🍗"),
+            meal("Loss Pumpkin Soup", "Light pumpkin soup.", 320, "🎃"),
+            meal("Loss Spinach Omelette", "Spinach omelette.", 340, "🍳"),
+            meal("Loss Vegetable Stir Fry", "Mixed vegetables.", 320, "🥦"),
+            meal("Loss Chicken Soup", "Light chicken soup.", 350, "🍲"),
+            meal("Loss Bean Salad", "Beans with vegetables.", 330, "🥗"),
+            meal("Loss Fish Vegetable Soup", "Fish vegetable soup.", 350, "🐟"),
+            meal("Loss Lentils & Greens", "Lentils with leafy greens.", 340, "🥬")
         ]
     },
 
@@ -546,60 +685,64 @@ const specialDietMenus = {
     highProtein: {
 
         name: "High Protein",
+
         icon: "💪",
 
         breakfasts: [
-            meal("Egg & Chicken Wrap", "Egg and grilled chicken wrap.", 470, "🌯"),
-            meal("Greek Yogurt & Oats", "High-protein yogurt with oats.", 410, "🥣"),
-            meal("Egg & Avocado Toast", "Egg and avocado on toast.", 430, "🥑"),
-            meal("Chicken Omelette", "Egg omelette with chicken.", 460, "🍳"),
-            meal("Beans & Eggs", "Beans served with boiled eggs.", 440, "🫘"),
-            meal("Tuna Egg Sandwich", "Tuna and egg sandwich.", 470, "🥪"),
-            meal("Yogurt Banana Bowl", "Yogurt, banana and oats.", 400, "🍌"),
-            meal("Scrambled Eggs & Beans", "Eggs with beans.", 450, "🍳"),
-            meal("Chicken Breakfast Wrap", "Chicken and vegetables in chapati.", 480, "🌯"),
-            meal("Egg & Sweet Potato", "Eggs with sweet potato.", 430, "🍠"),
-            meal("Protein Oat Bowl", "Oats with milk and yogurt.", 420, "🥣"),
-            meal("Fish & Egg Toast", "Fish, egg and whole-grain bread.", 470, "🐟"),
-            meal("Bean Omelette", "Omelette served with beans.", 440, "🍳"),
-            meal("Chicken Avocado Toast", "Chicken and avocado toast.", 460, "🥑"),
-            meal("Egg Yogurt Bowl", "Eggs served with yogurt and oats.", 420, "🥣")
+
+            meal("Protein Eggs & Toast", "Eggs with whole-grain toast.", 420, "🍳"),
+            meal("Protein Yogurt Bowl", "Greek yogurt with fruit.", 400, "🥣"),
+            meal("Protein Chicken Wrap", "Chicken and egg breakfast wrap.", 450, "🌯"),
+            meal("Protein Oats Milk", "Oats with milk.", 410, "🥣"),
+            meal("Protein Omelette", "Three-egg vegetable omelette.", 430, "🍳"),
+            meal("Protein Egg Avocado", "Egg and avocado toast.", 420, "🥑"),
+            meal("Protein Millet Eggs", "Millet porridge with eggs.", 430, "🥣"),
+            meal("Protein Yogurt Oats", "Yogurt with oats.", 410, "🥣"),
+            meal("Protein Chicken Sandwich", "Chicken sandwich.", 440, "🥪"),
+            meal("Protein Egg Sweet Potato", "Eggs with sweet potato.", 420, "🍠"),
+            meal("Protein Bean Chapati", "Beans with chapati.", 440, "🫘"),
+            meal("Protein Banana Oats", "Banana oats with milk.", 410, "🍌"),
+            meal("Protein Egg Spinach", "Eggs with spinach.", 400, "🍳"),
+            meal("Protein Yogurt Fruit", "Greek yogurt and fruit.", 390, "🥣"),
+            meal("Protein Potato Eggs", "Potatoes and eggs.", 440, "🥔")
         ],
 
         lunches: [
-            meal("Grilled Chicken & Rice", "Chicken breast with rice.", 680, "🍗"),
-            meal("Beef & Sweet Potato", "Lean beef with sweet potato.", 690, "🥩"),
-            meal("Tilapia & Ugali", "Tilapia served with ugali.", 670, "🐟"),
-            meal("Chicken Biryani", "Chicken with spiced rice.", 700, "🍗"),
-            meal("Beef & Beans", "Lean beef served with beans.", 680, "🥩"),
-            meal("Fish & Brown Rice", "Grilled fish with brown rice.", 650, "🐟"),
-            meal("Chicken & Lentils", "Chicken with lentils.", 660, "🍗"),
-            meal("Goat Stew & Ugali", "Goat stew with ugali.", 710, "🍲"),
-            meal("Beef Pilau", "Beef and spiced rice.", 700, "🍛"),
-            meal("Chicken Pasta", "Chicken with tomato pasta.", 670, "🍝"),
-            meal("Fish & Beans", "Fish served with beans.", 640, "🐟"),
-            meal("Chicken Matoke", "Chicken stew with matoke.", 660, "🍌"),
-            meal("Beef & Rice", "Lean beef with rice.", 680, "🍚"),
-            meal("Chicken & Chickpeas", "Chicken with chickpeas.", 650, "🍗"),
-            meal("Tilapia & Potatoes", "Tilapia with potatoes.", 640, "🐟")
+
+            meal("Protein Chicken Rice", "Chicken with rice.", 650, "🍗"),
+            meal("Protein Beef Pilau", "Beef pilau.", 670, "🥩"),
+            meal("Protein Tilapia Ugali", "Tilapia and ugali.", 640, "🐟"),
+            meal("Protein Chicken Sweet Potato", "Chicken and sweet potato.", 620, "🍠"),
+            meal("Protein Beef Rice", "Beef with rice.", 650, "🥩"),
+            meal("Protein Chicken Pasta", "Chicken pasta.", 630, "🍝"),
+            meal("Protein Goat Ugali", "Goat stew and ugali.", 670, "🍲"),
+            meal("Protein Fish Rice", "Fish with rice.", 620, "🐟"),
+            meal("Protein Chicken Chapati", "Chicken curry and chapati.", 650, "🍛"),
+            meal("Protein Beef Potatoes", "Beef and potatoes.", 640, "🥔"),
+            meal("Protein Chicken Matoke", "Chicken with matoke.", 630, "🍌"),
+            meal("Protein Lentil Rice", "Lentils with rice.", 590, "🍚"),
+            meal("Protein Tilapia Potatoes", "Tilapia and potatoes.", 620, "🐟"),
+            meal("Protein Beef Wrap", "Beef chapati wrap.", 640, "🌯"),
+            meal("Protein Chicken Beans", "Chicken and beans.", 650, "🫘")
         ],
 
         dinners: [
-            meal("Chicken Salad", "Grilled chicken with salad.", 480, "🥗"),
-            meal("Fish & Vegetables", "Grilled fish with vegetables.", 470, "🐟"),
-            meal("Beef Vegetable Soup", "Beef and vegetable soup.", 490, "🍲"),
-            meal("Egg & Chicken Salad", "Chicken and egg salad.", 480, "🥗"),
-            meal("Lentils & Chicken", "Chicken with lentils.", 500, "🍗"),
-            meal("Fish & Lentil Bowl", "Fish with lentils.", 490, "🐟"),
-            meal("Chicken Vegetable Soup", "Chicken soup with vegetables.", 460, "🍲"),
-            meal("Beef & Greens", "Lean beef with greens.", 490, "🥩"),
-            meal("Tuna Potato Salad", "Tuna with potato and vegetables.", 480, "🐟"),
-            meal("Chicken & Beans", "Chicken served with beans.", 500, "🍗"),
-            meal("Fish & Egg Salad", "Fish and egg salad.", 470, "🥗"),
-            meal("Beef Lentil Bowl", "Beef served with lentils.", 500, "🥩"),
-            meal("Chicken & Pumpkin", "Chicken with roasted pumpkin.", 470, "🎃"),
-            meal("Tilapia Salad", "Tilapia with fresh vegetables.", 460, "🐟"),
-            meal("Egg Bean Bowl", "Eggs served with beans.", 460, "🫘")
+
+            meal("Protein Chicken Salad", "Chicken and salad.", 520, "🍗"),
+            meal("Protein Fish Vegetables", "Fish and vegetables.", 500, "🐟"),
+            meal("Protein Beef Greens", "Lean beef and greens.", 530, "🥩"),
+            meal("Protein Chicken Soup", "Chicken vegetable soup.", 490, "🍲"),
+            meal("Protein Egg Salad", "Eggs and salad.", 470, "🥗"),
+            meal("Protein Tilapia Broccoli", "Tilapia and broccoli.", 510, "🐟"),
+            meal("Protein Chicken Spinach", "Chicken and spinach.", 500, "🍗"),
+            meal("Protein Beef Vegetables", "Beef and vegetables.", 520, "🥩"),
+            meal("Protein Lentil Bowl", "Lentils and vegetables.", 470, "🥗"),
+            meal("Protein Chicken Pumpkin", "Chicken with pumpkin.", 490, "🎃"),
+            meal("Protein Fish Salad", "Fish and salad.", 490, "🐟"),
+            meal("Protein Egg Vegetable Bowl", "Eggs and vegetables.", 470, "🍳"),
+            meal("Protein Chicken Broccoli", "Chicken and broccoli.", 500, "🥦"),
+            meal("Protein Beef Soup", "Beef vegetable soup.", 510, "🍲"),
+            meal("Protein Lentils Greens", "Lentils and leafy greens.", 460, "🥬")
         ]
     }
 };
@@ -607,7 +750,7 @@ const specialDietMenus = {
 
 /*
 |--------------------------------------------------------------------------
-| Generate 30-day Special Diet Menu
+| Generate 30 Day Diet
 |--------------------------------------------------------------------------
 */
 
@@ -620,19 +763,23 @@ function generateDietMenu(diet) {
         menu.push({
 
             breakfast:
-                diet.breakfasts[i % diet.breakfasts.length],
+                diet.breakfasts[
+                    i %
+                    diet.breakfasts.length
+                ],
 
             lunch:
                 diet.lunches[
-                    (i + 5) % diet.lunches.length
+                    (i + 5) %
+                    diet.lunches.length
                 ],
 
             dinner:
                 diet.dinners[
-                    (i + 10) % diet.dinners.length
+                    (i + 10) %
+                    diet.dinners.length
                 ]
         });
-
     }
 
     return menu;
@@ -652,154 +799,141 @@ let selectedDiet = null;
 let selectedDietDay = 0;
 
 
-/*
-|--------------------------------------------------------------------------
-| Favorites
-|--------------------------------------------------------------------------
-*/
-
-let savedMeals = JSON.parse(
-    localStorage.getItem("nutriplanFavorites")
-) || [];
+let savedMeals =
+    JSON.parse(
+        localStorage.getItem(
+            "nutriplanFavorites"
+        )
+    ) || [];
 
 
-/*
-|--------------------------------------------------------------------------
-| DOM Elements
-|--------------------------------------------------------------------------
-*/
+let nutritionProfile =
+    JSON.parse(
+        localStorage.getItem(
+            "nutriplanProfile"
+        )
+    ) || null;
 
-const daysContainer =
-    document.getElementById("daysContainer");
 
-const mealsContainer =
-    document.getElementById("mealsContainer");
-
-const selectedDayTitle =
-    document.getElementById("selectedDayTitle");
-
-const navItems =
-    document.querySelectorAll(".nav-item");
-
-const pages =
-    document.querySelectorAll(".page");
+let calculatedNutritionPlan = null;
 
 
 /*
 |--------------------------------------------------------------------------
-| Render Monthly Menu Days
+| Monthly Days
 |--------------------------------------------------------------------------
 */
 
 function renderDays() {
 
-    if (!daysContainer) {
+    const container =
+        document.getElementById(
+            "daysContainer"
+        );
+
+    if (!container) {
         return;
     }
 
-    daysContainer.innerHTML = "";
+    container.innerHTML = "";
 
-    monthlyMenu.forEach((day, index) => {
+    monthlyPlans.forEach(
+        (day, index) => {
 
-        const button =
-            document.createElement("button");
+            const button =
+                document.createElement(
+                    "button"
+                );
 
-        button.className = "day-card";
+            button.className =
+                "day-button";
 
-        if (index === selectedDay) {
-            button.classList.add("active");
+            if (index === selectedDay) {
+                button.classList.add(
+                    "active"
+                );
+            }
+
+            button.innerHTML = `
+                <span>Day</span>
+                <strong>${index + 1}</strong>
+            `;
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    selectedDay =
+                        index;
+
+                    renderDays();
+                    renderMeals();
+                }
+            );
+
+            container.appendChild(
+                button
+            );
         }
-
-        button.innerHTML = `
-            <span class="day-number">
-                ${index + 1}
-            </span>
-
-            <span class="day-label">
-                Day
-            </span>
-        `;
-
-        button.addEventListener(
-            "click",
-            () => selectDay(index)
-        );
-
-        daysContainer.appendChild(button);
-    });
+    );
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| Select Monthly Menu Day
-|--------------------------------------------------------------------------
-*/
-
-function selectDay(index) {
-
-    selectedDay = index;
-
-    renderDays();
-    renderMeals();
-
-    const selectedCard =
-        daysContainer.children[index];
-
-    if (selectedCard) {
-
-        selectedCard.scrollIntoView({
-            behavior: "smooth",
-            inline: "center",
-            block: "nearest"
-        });
-    }
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| Render Monthly Menu Meals
+| Monthly Meals
 |--------------------------------------------------------------------------
 */
 
 function renderMeals() {
 
-    if (!mealsContainer) {
+    const container =
+        document.getElementById(
+            "mealsContainer"
+        );
+
+    if (!container) {
         return;
     }
 
+    container.innerHTML = "";
+
     const day =
-        monthlyMenu[selectedDay];
+        monthlyPlans[selectedDay];
 
-    selectedDayTitle.textContent =
-        `Day ${selectedDay + 1}`;
+    const title =
+        document.getElementById(
+            "selectedDayTitle"
+        );
 
-    mealsContainer.innerHTML = "";
+    if (title) {
+        title.textContent =
+            `Day ${selectedDay + 1}`;
+    }
 
     createMealCard(
         "Breakfast",
         day.breakfast,
-        mealsContainer
+        container
     );
 
     createMealCard(
         "Lunch",
         day.lunch,
-        mealsContainer
+        container
     );
 
     createMealCard(
         "Dinner",
         day.dinner,
-        mealsContainer
+        container
     );
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| Generic Meal Card
+| Meal Card
 |--------------------------------------------------------------------------
 */
 
@@ -810,12 +944,51 @@ function createMealCard(
 ) {
 
     const saved =
-        savedMeals.includes(mealData.name);
+        savedMeals.includes(
+            mealData.name
+        );
 
     const card =
-        document.createElement("article");
+        document.createElement(
+            "article"
+        );
 
-    card.className = "meal-card";
+    card.className =
+        "meal-card";
+
+
+    const calorieContent =
+        mealData.portionFactor
+            ? `
+                <div class="calorie-details">
+
+                    <span class="base-calories">
+                        Base:
+                        ${mealData.calories}
+                        kcal
+                    </span>
+
+                    <span class="portion">
+                        Recommended portion:
+                        ${mealData.portionFactor}×
+                    </span>
+
+                    <span class="calories">
+                        🔥
+                        ${mealData.targetCalories}
+                        kcal
+                    </span>
+
+                </div>
+            `
+            : `
+                <span class="calories">
+                    🔥
+                    ${mealData.calories}
+                    kcal
+                </span>
+            `;
+
 
     card.innerHTML = `
 
@@ -847,9 +1020,7 @@ function createMealCard(
 
             <div class="meal-footer">
 
-                <span class="calories">
-                    🔥 ${mealData.calories} kcal
-                </span>
+                ${calorieContent}
 
                 <button
                     class="favorite-button
@@ -864,10 +1035,12 @@ function createMealCard(
         </div>
     `;
 
+
     const favoriteButton =
         card.querySelector(
             ".favorite-button"
         );
+
 
     favoriteButton.addEventListener(
         "click",
@@ -880,7 +1053,10 @@ function createMealCard(
         }
     );
 
-    container.appendChild(card);
+
+    container.appendChild(
+        card
+    );
 }
 
 
@@ -895,24 +1071,37 @@ function toggleFavorite(
     button
 ) {
 
-    const index =
-        savedMeals.indexOf(mealName);
+    if (
+        savedMeals.includes(
+            mealName
+        )
+    ) {
 
-    if (index === -1) {
+        savedMeals =
+            savedMeals.filter(
+                name =>
+                    name !== mealName
+            );
 
-        savedMeals.push(mealName);
+        button.textContent =
+            "🤍";
 
-        button.textContent = "❤️";
-
-        button.classList.add("saved");
+        button.classList.remove(
+            "saved"
+        );
 
     } else {
 
-        savedMeals.splice(index, 1);
+        savedMeals.push(
+            mealName
+        );
 
-        button.textContent = "🤍";
+        button.textContent =
+            "❤️";
 
-        button.classList.remove("saved");
+        button.classList.add(
+            "saved"
+        );
     }
 
 
@@ -929,61 +1118,99 @@ function toggleFavorite(
 |--------------------------------------------------------------------------
 */
 
-navItems.forEach(item => {
-
-    item.addEventListener(
-        "click",
-        function () {
-
-            const pageId =
-                this.dataset.page;
-
-            if (!pageId) {
-                return;
-            }
+const navItems =
+    document.querySelectorAll(
+        ".nav-item"
+    );
 
 
-            pages.forEach(page => {
-                page.classList.remove(
-                    "active-page"
-                );
-            });
+const pages =
+    document.querySelectorAll(
+        ".page"
+    );
 
 
-            navItems.forEach(nav => {
-                nav.classList.remove(
-                    "active"
-                );
-            });
+function showPage(pageId) {
 
+    pages.forEach(
+        page => {
 
-            const selectedPage =
-                document.getElementById(
-                    pageId
-                );
-
-
-            if (selectedPage) {
-
-                selectedPage.classList.add(
-                    "active-page"
-                );
-            }
-
-
-            this.classList.add(
-                "active"
+            page.classList.remove(
+                "active-page"
             );
-
-
-            if (pageId === "savedPage") {
-                renderSavedMeals();
-            }
-
         }
     );
 
-});
+
+    navItems.forEach(
+        nav => {
+
+            nav.classList.remove(
+                "active"
+            );
+        }
+    );
+
+
+    const page =
+        document.getElementById(
+            pageId
+        );
+
+
+    if (page) {
+        page.classList.add(
+            "active-page"
+        );
+    }
+
+
+    const nav =
+        document.querySelector(
+            `[data-page="${pageId}"]`
+        );
+
+
+    if (nav) {
+        nav.classList.add(
+            "active"
+        );
+    }
+
+
+    if (
+        pageId ===
+        "savedPage"
+    ) {
+
+        renderSavedMeals();
+    }
+
+
+    if (
+        pageId ===
+        "ordersPage"
+    ) {
+
+        renderOrders();
+    }
+}
+
+
+navItems.forEach(
+    item => {
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                showPage(
+                    item.dataset.page
+                );
+            }
+        );
+    }
+);
 
 
 /*
@@ -993,40 +1220,61 @@ navItems.forEach(item => {
 */
 
 document
-    .querySelectorAll(".diet-card")
-    .forEach(card => {
+    .querySelectorAll(
+        ".diet-card"
+    )
+    .forEach(
+        card => {
 
-        card.addEventListener(
-            "click",
-            () => {
+            card.addEventListener(
+                "click",
+                () => {
 
-                const dietKey =
-                    card.dataset.diet;
-
-                openDiet(dietKey);
-            }
-        );
-
-    });
+                    openDiet(
+                        card.dataset.diet
+                    );
+                }
+            );
+        }
+    );
 
 
 /*
 |--------------------------------------------------------------------------
-| Open Special Diet
+| Open Diet
 |--------------------------------------------------------------------------
 */
 
 function openDiet(dietKey) {
 
-    if (!specialDietMenus[dietKey]) {
+    if (
+        !specialDietMenus[
+            dietKey
+        ]
+    ) {
+
+        console.error(
+            "Diet not found:",
+            dietKey
+        );
+
         return;
     }
 
 
     selectedDiet =
-        specialDietMenus[dietKey];
+        specialDietMenus[
+            dietKey
+        ];
+
 
     selectedDietDay = 0;
+
+
+    selectedDiet.menu =
+        generateDietMenu(
+            selectedDiet
+        );
 
 
     const listView =
@@ -1034,81 +1282,69 @@ function openDiet(dietKey) {
             "dietListView"
         );
 
+
     const menuView =
         document.getElementById(
             "dietMenuView"
         );
 
 
-    listView.classList.add("hidden");
+    if (
+        !listView ||
+        !menuView
+    ) {
 
-    menuView.classList.remove("hidden");
+        console.error(
+            "Diet HTML views not found."
+        );
+
+        return;
+    }
 
 
-    document
-        .getElementById(
+    listView.classList.add(
+        "hidden"
+    );
+
+
+    menuView.classList.remove(
+        "hidden"
+    );
+
+
+    const name =
+        document.getElementById(
             "selectedDietName"
-        )
-        .textContent =
-        selectedDiet.name;
+        );
 
 
-    document
-        .getElementById(
+    const icon =
+        document.getElementById(
             "selectedDietIcon"
-        )
-        .textContent =
-        selectedDiet.icon;
+        );
+
+
+    if (name) {
+        name.textContent =
+            selectedDiet.name;
+    }
+
+
+    if (icon) {
+        icon.textContent =
+            selectedDiet.icon;
+    }
 
 
     renderDietDays();
+
     renderDietMeals();
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| Back From Diet
-|--------------------------------------------------------------------------
-*/
-
-const backToDiets =
-    document.getElementById(
-        "backToDiets"
-    );
-
-
-if (backToDiets) {
-
-    backToDiets.addEventListener(
-        "click",
-        () => {
-
-            document
-                .getElementById(
-                    "dietMenuView"
-                )
-                .classList.add(
-                    "hidden"
-                );
-
-
-            document
-                .getElementById(
-                    "dietListView"
-                )
-                .classList.remove(
-                    "hidden"
-                );
-
-        }
-    );
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| Render Diet Days
+| Diet Days
 |--------------------------------------------------------------------------
 */
 
@@ -1119,7 +1355,12 @@ function renderDietDays() {
             "dietDaysContainer"
         );
 
-    if (!container) {
+
+    if (
+        !container ||
+        !selectedDiet
+    ) {
+
         return;
     }
 
@@ -1127,87 +1368,171 @@ function renderDietDays() {
     container.innerHTML = "";
 
 
-    for (let i = 0; i < 30; i++) {
+    selectedDiet.menu.forEach(
+        (day, index) => {
 
-        const button =
-            document.createElement(
-                "button"
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "day-button";
+
+
+            if (
+                index ===
+                selectedDietDay
+            ) {
+
+                button.classList.add(
+                    "active"
+                );
+            }
+
+
+            button.innerHTML = `
+                <span>Day</span>
+                <strong>${index + 1}</strong>
+            `;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    selectedDietDay =
+                        index;
+
+                    renderDietDays();
+
+                    renderDietMeals();
+                }
             );
 
-        button.className =
-            "day-card";
 
-
-        if (i === selectedDietDay) {
-
-            button.classList.add(
-                "active"
+            container.appendChild(
+                button
             );
         }
-
-
-        button.innerHTML = `
-
-            <span class="day-number">
-                ${i + 1}
-            </span>
-
-            <span class="day-label">
-                Day
-            </span>
-
-        `;
-
-
-        button.addEventListener(
-            "click",
-            () => selectDietDay(i)
-        );
-
-
-        container.appendChild(
-            button
-        );
-    }
+    );
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| Select Diet Day
+| Personalized Calories
 |--------------------------------------------------------------------------
 */
 
-function selectDietDay(index) {
+const calorieDistribution = {
 
-    selectedDietDay = index;
+    breakfast: 0.25,
 
-    renderDietDays();
+    lunch: 0.35,
 
-    renderDietMeals();
+    dinner: 0.30,
+
+    snack: 0.10
+};
 
 
-    const container =
-        document.getElementById(
-            "dietDaysContainer"
+/*
+|--------------------------------------------------------------------------
+| Adjust Meal Portion
+|--------------------------------------------------------------------------
+*/
+
+function calculateAdjustedMeal(
+    mealData,
+    mealTargetCalories
+) {
+
+    let portionFactor =
+        mealTargetCalories /
+        mealData.calories;
+
+
+    /*
+     * Avoid extremely unrealistic
+     * automatic portion sizes.
+     */
+
+    portionFactor =
+        Math.max(
+            0.75,
+            Math.min(
+                portionFactor,
+                1.50
+            )
         );
 
 
-    if (
-        container &&
-        container.children[index]
-    ) {
+    const adjustedCalories =
+        mealData.calories *
+        portionFactor;
 
-        container
-            .children[index]
-            .scrollIntoView({
 
-                behavior: "smooth",
-                inline: "center",
-                block: "nearest"
+    return {
 
-            });
-    }
+        ...mealData,
+
+        targetCalories:
+            Math.round(
+                adjustedCalories
+            ),
+
+        portionFactor:
+            portionFactor.toFixed(2)
+    };
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Personalized Day
+|--------------------------------------------------------------------------
+*/
+
+function buildPersonalizedDay(
+    day,
+    dailyTarget
+) {
+
+    return {
+
+        breakfast:
+            calculateAdjustedMeal(
+                day.breakfast,
+                dailyTarget *
+                    calorieDistribution
+                        .breakfast
+            ),
+
+        lunch:
+            calculateAdjustedMeal(
+                day.lunch,
+                dailyTarget *
+                    calorieDistribution
+                        .lunch
+            ),
+
+        dinner:
+            calculateAdjustedMeal(
+                day.dinner,
+                dailyTarget *
+                    calorieDistribution
+                        .dinner
+            ),
+
+        snackCalories:
+            Math.round(
+                dailyTarget *
+                    calorieDistribution
+                        .snack
+            )
+    };
 }
 
 
@@ -1219,19 +1544,51 @@ function selectDietDay(index) {
 
 function renderDietMeals() {
 
-    if (!selectedDiet) {
+    const container =
+        document.getElementById(
+            "dietMealsContainer"
+        );
+
+
+    if (
+        !container ||
+        !selectedDiet ||
+        !selectedDiet.menu
+    ) {
+
         return;
     }
 
 
-    const menu =
-        generateDietMenu(
-            selectedDiet
+    container.innerHTML = "";
+
+
+    let day =
+        selectedDiet.menu[
+            selectedDietDay
+        ];
+
+
+    const personalized =
+        calculatedNutritionPlan &&
+        (
+            selectedDiet.name ===
+                "Weight Gain" ||
+
+            selectedDiet.name ===
+                "Weight Loss"
         );
 
 
-    const day =
-        menu[selectedDietDay];
+    if (personalized) {
+
+        day =
+            buildPersonalizedDay(
+                day,
+                calculatedNutritionPlan
+                    .target
+            );
+    }
 
 
     const title =
@@ -1243,22 +1600,10 @@ function renderDietMeals() {
     if (title) {
 
         title.textContent =
-            `Day ${selectedDietDay + 1}`;
+            `Day ${
+                selectedDietDay + 1
+            }`;
     }
-
-
-    const container =
-        document.getElementById(
-            "dietMealsContainer"
-        );
-
-
-    if (!container) {
-        return;
-    }
-
-
-    container.innerHTML = "";
 
 
     createMealCard(
@@ -1280,12 +1625,116 @@ function renderDietMeals() {
         day.dinner,
         container
     );
+
+
+    /*
+     * Show reserved snack calories
+     * for personalized plans.
+     */
+
+    if (personalized) {
+
+        const snackCard =
+            document.createElement(
+                "article"
+            );
+
+
+        snackCard.className =
+            "meal-card";
+
+
+        snackCard.innerHTML = `
+
+            <div class="meal-image">
+                🍎
+            </div>
+
+            <div class="meal-info">
+
+                <div class="meal-type">
+                    Snack
+                </div>
+
+                <div class="meal-name">
+                    Personalized Snack
+                </div>
+
+                <p class="meal-description">
+                    Snack calories reserved
+                    to complete your daily
+                    nutrition target.
+                </p>
+
+                <span class="calories">
+                    🔥
+                    ${day.snackCalories}
+                    kcal
+                </span>
+
+            </div>
+        `;
+
+
+        container.appendChild(
+            snackCard
+        );
+    }
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| Find Saved Meal Information
+| Back From Diet
+|--------------------------------------------------------------------------
+*/
+
+const backToDiets =
+    document.getElementById(
+        "backToDiets"
+    );
+
+
+if (backToDiets) {
+
+    backToDiets.addEventListener(
+        "click",
+        () => {
+
+            const menuView =
+                document.getElementById(
+                    "dietMenuView"
+                );
+
+
+            const listView =
+                document.getElementById(
+                    "dietListView"
+                );
+
+
+            if (menuView) {
+
+                menuView.classList.add(
+                    "hidden"
+                );
+            }
+
+
+            if (listView) {
+
+                listView.classList.remove(
+                    "hidden"
+                );
+            }
+        }
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Get All Meals
 |--------------------------------------------------------------------------
 */
 
@@ -1294,100 +1743,37 @@ function getAllAvailableMeals() {
     const allMeals = [];
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Monthly Menu
-    |--------------------------------------------------------------------------
-    */
+    monthlyPlans.forEach(
+        day => {
 
-    monthlyMenu.forEach(
-        (day, index) => {
-
-            allMeals.push({
-
-                ...day.breakfast,
-                type: "Breakfast",
-                source:
-                    `Monthly Menu - Day ${index + 1}`
-
-            });
-
-
-            allMeals.push({
-
-                ...day.lunch,
-                type: "Lunch",
-                source:
-                    `Monthly Menu - Day ${index + 1}`
-
-            });
-
-
-            allMeals.push({
-
-                ...day.dinner,
-                type: "Dinner",
-                source:
-                    `Monthly Menu - Day ${index + 1}`
-
-            });
-
+            allMeals.push(
+                day.breakfast,
+                day.lunch,
+                day.dinner
+            );
         }
     );
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Special Diets
-    |--------------------------------------------------------------------------
-    */
+    Object.values(
+        specialDietMenus
+    ).forEach(
+        diet => {
 
-    Object
-        .values(specialDietMenus)
-        .forEach(diet => {
-
-            diet.breakfasts.forEach(
+            [
+                ...diet.breakfasts,
+                ...diet.lunches,
+                ...diet.dinners
+            ].forEach(
                 item => {
 
-                    allMeals.push({
-
-                        ...item,
-                        type: "Breakfast",
-                        source: diet.name
-
-                    });
+                    allMeals.push(
+                        item
+                    );
                 }
             );
-
-
-            diet.lunches.forEach(
-                item => {
-
-                    allMeals.push({
-
-                        ...item,
-                        type: "Lunch",
-                        source: diet.name
-
-                    });
-                }
-            );
-
-
-            diet.dinners.forEach(
-                item => {
-
-                    allMeals.push({
-
-                        ...item,
-                        type: "Dinner",
-                        source: diet.name
-
-                    });
-                }
-            );
-
-        });
+        }
+    );
 
 
     return allMeals;
@@ -1396,7 +1782,7 @@ function getAllAvailableMeals() {
 
 /*
 |--------------------------------------------------------------------------
-| Saved Meals Page
+| Saved Meals
 |--------------------------------------------------------------------------
 */
 
@@ -1416,23 +1802,25 @@ function renderSavedMeals() {
     container.innerHTML = "";
 
 
-    if (savedMeals.length === 0) {
+    if (
+        savedMeals.length === 0
+    ) {
 
         container.innerHTML = `
 
             <div class="empty-state">
 
                 <div class="empty-icon">
-                    🤍
+                    ❤️
                 </div>
 
                 <h3>
-                    No saved meals
+                    No saved meals yet
                 </h3>
 
                 <p>
-                    Tap the heart icon on a meal
-                    to save it here.
+                    Save meals you like
+                    and they will appear here.
                 </p>
 
             </div>
@@ -1446,52 +1834,45 @@ function renderSavedMeals() {
         getAllAvailableMeals();
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Avoid showing duplicates when a meal occurs on several days.
-    |--------------------------------------------------------------------------
-    */
-
-    const alreadyDisplayed =
+    const displayed =
         new Set();
 
 
     savedMeals.forEach(
-        savedMealName => {
-
+        mealName => {
 
             if (
-                alreadyDisplayed.has(
-                    savedMealName
+                displayed.has(
+                    mealName
                 )
             ) {
+
                 return;
             }
 
 
-            const mealData =
+            const found =
                 allMeals.find(
                     item =>
                         item.name ===
-                        savedMealName
+                        mealName
                 );
 
 
-            if (!mealData) {
+            if (!found) {
                 return;
             }
 
 
-            alreadyDisplayed.add(
-                savedMealName
+            displayed.add(
+                mealName
             );
 
 
             createSavedMealCard(
-                mealData,
+                found,
                 container
             );
-
         }
     );
 }
@@ -1526,10 +1907,6 @@ function createSavedMealCard(
 
         <div class="meal-info">
 
-            <div class="meal-type">
-                ${mealData.type}
-            </div>
-
             <div class="meal-name">
                 ${mealData.name}
             </div>
@@ -1541,12 +1918,13 @@ function createSavedMealCard(
             <div class="meal-footer">
 
                 <span class="calories">
-                    🔥 ${mealData.calories} kcal
+                    🔥
+                    ${mealData.calories}
+                    kcal
                 </span>
 
                 <button
                     class="favorite-button saved"
-                    aria-label="Remove saved meal"
                 >
                     ❤️
                 </button>
@@ -1570,8 +1948,6 @@ function createSavedMealCard(
             removeSavedMeal(
                 mealData.name
             );
-
-            renderSavedMeals();
         }
     );
 
@@ -1584,11 +1960,13 @@ function createSavedMealCard(
 
 /*
 |--------------------------------------------------------------------------
-| Remove Favorite
+| Remove Saved Meal
 |--------------------------------------------------------------------------
 */
 
-function removeSavedMeal(mealName) {
+function removeSavedMeal(
+    mealName
+) {
 
     savedMeals =
         savedMeals.filter(
@@ -1599,16 +1977,26 @@ function removeSavedMeal(mealName) {
 
     localStorage.setItem(
         "nutriplanFavorites",
-        JSON.stringify(savedMeals)
+        JSON.stringify(
+            savedMeals
+        )
     );
+
+
+    renderSavedMeals();
+
+    renderMeals();
+
+
+    if (selectedDiet) {
+        renderDietMeals();
+    }
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| Orders Placeholder
-|--------------------------------------------------------------------------
-| Orders will be implemented in the next step.
+| Orders
 |--------------------------------------------------------------------------
 */
 
@@ -1638,7 +2026,8 @@ function renderOrders() {
             </h3>
 
             <p>
-                Your meal orders will appear here.
+                Your meal orders
+                will appear here.
             </p>
 
         </div>
@@ -1648,85 +2037,622 @@ function renderOrders() {
 
 /*
 |--------------------------------------------------------------------------
-| Validate Meal Repetition
-|--------------------------------------------------------------------------
-| Useful during development.
-|
-| It checks that no meal appears more than twice
-| inside a generated menu.
+| Nutrition Profile
 |--------------------------------------------------------------------------
 */
 
-function validateMenu(menu) {
-
-    const count = {};
-
-
-    menu.forEach(day => {
-
-        const meals = [
-            day.breakfast,
-            day.lunch,
-            day.dinner
-        ];
+const profileButton =
+    document.getElementById(
+        "profileButton"
+    );
 
 
-        meals.forEach(item => {
+if (profileButton) {
 
-            count[item.name] =
-                (count[item.name] || 0)
-                + 1;
+    profileButton.addEventListener(
+        "click",
+        () => {
 
-        });
-    });
-
-
-    const repeatedTooOften =
-        Object.entries(count)
-            .filter(
-                ([name, total]) =>
-                    total > 2
+            showPage(
+                "profilePage"
             );
 
-
-    if (
-        repeatedTooOften.length >
-        0
-    ) {
-
-        console.warn(
-            "Meals repeated more than twice:",
-            repeatedTooOften
-        );
-    }
-
+            loadNutritionProfile();
+        }
+    );
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| Validate Main Menu
+| Back From Profile
 |--------------------------------------------------------------------------
 */
 
-validateMenu(monthlyMenu);
+const backFromProfile =
+    document.getElementById(
+        "backFromProfile"
+    );
+
+
+if (backFromProfile) {
+
+    backFromProfile.addEventListener(
+        "click",
+        () => {
+
+            showPage(
+                "monthlyPage"
+            );
+        }
+    );
+}
 
 
 /*
 |--------------------------------------------------------------------------
-| Validate Special Diet Menus
+| Calculate BMR
 |--------------------------------------------------------------------------
 */
 
-Object.values(
-    specialDietMenus
-).forEach(diet => {
+function calculateBMR(
+    sex,
+    weight,
+    height,
+    age
+) {
 
-    validateMenu(
-        generateDietMenu(diet)
+    const base =
+        (10 * weight) +
+        (6.25 * height) -
+        (5 * age);
+
+
+    if (sex === "male") {
+        return base + 5;
+    }
+
+
+    return base - 161;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Maintenance Calories
+|--------------------------------------------------------------------------
+*/
+
+function calculateMaintenanceCalories(
+    bmr,
+    activityFactor
+) {
+
+    return (
+        bmr *
+        activityFactor
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Goal Calories
+|--------------------------------------------------------------------------
+*/
+
+function calculateGoalCalories(
+    maintenance,
+    goal
+) {
+
+    switch (goal) {
+
+        case "loss":
+
+            return Math.max(
+                maintenance - 400,
+                1200
+            );
+
+
+        case "gain":
+
+            return (
+                maintenance + 400
+            );
+
+
+        default:
+
+            return maintenance;
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Nutrition Form
+|--------------------------------------------------------------------------
+*/
+
+const nutritionProfileForm =
+    document.getElementById(
+        "nutritionProfileForm"
     );
 
-});
+
+if (nutritionProfileForm) {
+
+    nutritionProfileForm.addEventListener(
+        "submit",
+        event => {
+
+            event.preventDefault();
+
+
+            const profile = {
+
+                age:
+                    Number(
+                        document
+                            .getElementById(
+                                "userAge"
+                            )
+                            .value
+                    ),
+
+                sex:
+                    document
+                        .getElementById(
+                            "userSex"
+                        )
+                        .value,
+
+                weight:
+                    Number(
+                        document
+                            .getElementById(
+                                "userWeight"
+                            )
+                            .value
+                    ),
+
+                height:
+                    Number(
+                        document
+                            .getElementById(
+                                "userHeight"
+                            )
+                            .value
+                    ),
+
+                activity:
+                    Number(
+                        document
+                            .getElementById(
+                                "activityLevel"
+                            )
+                            .value
+                    ),
+
+                goal:
+                    document
+                        .getElementById(
+                            "nutritionGoal"
+                        )
+                        .value
+            };
+
+
+            nutritionProfile =
+                profile;
+
+
+            localStorage.setItem(
+                "nutriplanProfile",
+                JSON.stringify(
+                    profile
+                )
+            );
+
+
+            calculateNutritionPlan(
+                profile
+            );
+        }
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Calculate Nutrition Plan
+|--------------------------------------------------------------------------
+*/
+
+function calculateNutritionPlan(
+    profile
+) {
+
+    const bmr =
+        calculateBMR(
+            profile.sex,
+            profile.weight,
+            profile.height,
+            profile.age
+        );
+
+
+    const maintenance =
+        calculateMaintenanceCalories(
+            bmr,
+            profile.activity
+        );
+
+
+    const target =
+        calculateGoalCalories(
+            maintenance,
+            profile.goal
+        );
+
+
+    calculatedNutritionPlan = {
+
+        bmr:
+            Math.round(
+                bmr
+            ),
+
+        maintenance:
+            Math.round(
+                maintenance
+            ),
+
+        target:
+            Math.round(
+                target
+            ),
+
+        goal:
+            profile.goal
+    };
+
+
+    displayNutritionResult(
+        calculatedNutritionPlan
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Display Nutrition Result
+|--------------------------------------------------------------------------
+*/
+
+function displayNutritionResult(
+    plan
+) {
+
+    const result =
+        document.getElementById(
+            "nutritionResult"
+        );
+
+
+    if (!result) {
+        return;
+    }
+
+
+    result.classList.remove(
+        "hidden"
+    );
+
+
+    document
+        .getElementById(
+            "targetCalories"
+        )
+        .textContent =
+        plan.target;
+
+
+    document
+        .getElementById(
+            "bmrResult"
+        )
+        .textContent =
+        `${plan.bmr} kcal`;
+
+
+    document
+        .getElementById(
+            "maintenanceResult"
+        )
+        .textContent =
+        `${plan.maintenance} kcal`;
+
+
+    const goalNames = {
+
+        loss:
+            "Weight Loss",
+
+        maintain:
+            "Maintain Weight",
+
+        gain:
+            "Weight Gain"
+    };
+
+
+    document
+        .getElementById(
+            "goalResult"
+        )
+        .textContent =
+        goalNames[
+            plan.goal
+        ];
+
+
+    const recommendation =
+        document.getElementById(
+            "recommendationText"
+        );
+
+
+    if (!recommendation) {
+        return;
+    }
+
+
+    if (
+        plan.goal ===
+        "loss"
+    ) {
+
+        recommendation.textContent =
+            `Your estimated maintenance intake is ${plan.maintenance} kcal/day. Your initial NutriPlan target is approximately ${plan.target} kcal/day.`;
+
+    } else if (
+        plan.goal ===
+        "gain"
+    ) {
+
+        recommendation.textContent =
+            `Your estimated maintenance intake is ${plan.maintenance} kcal/day. Your initial NutriPlan target is approximately ${plan.target} kcal/day.`;
+
+    } else {
+
+        recommendation.textContent =
+            `Your estimated maintenance requirement is approximately ${plan.target} kcal/day.`;
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Load Saved Nutrition Profile
+|--------------------------------------------------------------------------
+*/
+
+function loadNutritionProfile() {
+
+    if (!nutritionProfile) {
+        return;
+    }
+
+
+    const age =
+        document.getElementById(
+            "userAge"
+        );
+
+    const sex =
+        document.getElementById(
+            "userSex"
+        );
+
+    const weight =
+        document.getElementById(
+            "userWeight"
+        );
+
+    const height =
+        document.getElementById(
+            "userHeight"
+        );
+
+    const activity =
+        document.getElementById(
+            "activityLevel"
+        );
+
+    const goal =
+        document.getElementById(
+            "nutritionGoal"
+        );
+
+
+    if (age) {
+        age.value =
+            nutritionProfile.age;
+    }
+
+
+    if (sex) {
+        sex.value =
+            nutritionProfile.sex;
+    }
+
+
+    if (weight) {
+        weight.value =
+            nutritionProfile.weight;
+    }
+
+
+    if (height) {
+        height.value =
+            nutritionProfile.height;
+    }
+
+
+    if (activity) {
+        activity.value =
+            nutritionProfile.activity;
+    }
+
+
+    if (goal) {
+        goal.value =
+            nutritionProfile.goal;
+    }
+
+
+    calculateNutritionPlan(
+        nutritionProfile
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Open Recommended Menu
+|--------------------------------------------------------------------------
+*/
+
+const openRecommendedPlan =
+    document.getElementById(
+        "openRecommendedPlan"
+    );
+
+
+if (openRecommendedPlan) {
+
+    openRecommendedPlan.addEventListener(
+        "click",
+        () => {
+
+            if (
+                !calculatedNutritionPlan
+            ) {
+
+                return;
+            }
+
+
+            let dietKey = null;
+
+
+            if (
+                calculatedNutritionPlan
+                    .goal ===
+                "loss"
+            ) {
+
+                dietKey =
+                    "weightLoss";
+
+            } else if (
+                calculatedNutritionPlan
+                    .goal ===
+                "gain"
+            ) {
+
+                dietKey =
+                    "weightGain";
+
+            } else {
+
+                showPage(
+                    "monthlyPage"
+                );
+
+                return;
+            }
+
+
+            /*
+             * First open Special Diets page.
+             */
+
+            showPage(
+                "dietsPage"
+            );
+
+
+            /*
+             * Then open the recommended diet.
+             */
+
+            openDiet(
+                dietKey
+            );
+        }
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Validate Menu
+|--------------------------------------------------------------------------
+*/
+
+function validateMenu(
+    menu
+) {
+
+    const counts = {};
+
+
+    menu.forEach(
+        day => {
+
+            [
+                day.breakfast,
+                day.lunch,
+                day.dinner
+            ].forEach(
+                item => {
+
+                    counts[item.name] =
+                        (
+                            counts[
+                                item.name
+                            ] || 0
+                        ) + 1;
+                }
+            );
+        }
+    );
+
+
+    const repeated =
+        Object.entries(
+            counts
+        )
+        .filter(
+            ([name, total]) =>
+                total > 2
+        );
+
+
+    if (
+        repeated.length > 0
+    ) {
+
+        console.warn(
+            "Meals repeated more than twice:",
+            repeated
+        );
+    }
+}
 
 
 /*
@@ -1740,3 +2666,7 @@ renderDays();
 renderMeals();
 
 renderOrders();
+
+validateMenu(
+    monthlyPlans
+);
