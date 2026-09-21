@@ -746,7 +746,44 @@ const specialDietMenus = {
         ]
     }
 };
+const snackPools = {
 
+    weightGain: [
+        meal("Banana & Peanut Butter", "Banana served with peanut butter.", 280, "🍌"),
+        meal("Yogurt & Granola", "Plain yogurt with granola.", 260, "🥣"),
+        meal("Avocado Toast Snack", "Whole-grain toast with avocado.", 250, "🥑"),
+        meal("Milk & Banana", "Whole milk served with banana.", 240, "🥛"),
+        meal("Egg & Toast Snack", "Boiled egg served with toast.", 230, "🍳"),
+        meal("Sweet Potato Snack", "Boiled sweet potato.", 220, "🍠"),
+        meal("Fruit Yogurt Snack", "Fresh fruit served with yogurt.", 230, "🍓"),
+        meal("Chapati & Egg Snack", "Small chapati served with egg.", 270, "🌯"),
+        meal("Oat Yogurt Snack", "Oats mixed with plain yogurt.", 250, "🥣"),
+        meal("Banana Oat Snack", "Banana served with oats.", 240, "🍌"),
+        meal("Avocado Egg Snack", "Avocado served with boiled egg.", 260, "🥑"),
+        meal("Milk Oat Snack", "Oats served with whole milk.", 250, "🥛"),
+        meal("Fruit Granola Snack", "Fresh fruit with granola.", 240, "🥭"),
+        meal("Potato Egg Snack", "Small potato served with egg.", 260, "🥔"),
+        meal("Yogurt Banana Snack", "Plain yogurt with banana.", 230, "🥣")
+    ],
+
+    weightLoss: [
+        meal("Apple & Yogurt", "Fresh apple with plain yogurt.", 160, "🍎"),
+        meal("Boiled Egg Snack", "One boiled egg with tomato.", 140, "🍳"),
+        meal("Banana Snack", "Fresh banana.", 120, "🍌"),
+        meal("Fruit Salad Snack", "Small fresh fruit salad.", 150, "🍓"),
+        meal("Plain Yogurt Snack", "Unsweetened plain yogurt.", 130, "🥣"),
+        meal("Apple Snack", "Fresh apple.", 100, "🍎"),
+        meal("Sweet Potato Light Snack", "Small boiled sweet potato.", 150, "🍠"),
+        meal("Egg & Cucumber", "Boiled egg with cucumber.", 140, "🥒"),
+        meal("Orange & Yogurt", "Fresh orange with plain yogurt.", 150, "🍊"),
+        meal("Avocado Light Snack", "Small serving of avocado.", 160, "🥑"),
+        meal("Carrot Yogurt Snack", "Carrot sticks with plain yogurt.", 130, "🥕"),
+        meal("Papaya Snack", "Fresh papaya.", 110, "🥭"),
+        meal("Pineapple Snack", "Fresh pineapple.", 110, "🍍"),
+        meal("Egg Tomato Snack", "Boiled egg with fresh tomato.", 140, "🍅"),
+        meal("Watermelon Snack", "Fresh watermelon.", 100, "🍉")
+    ]
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -1497,41 +1534,37 @@ function calculateAdjustedMeal(
 
 function buildPersonalizedDay(
     day,
-    dailyTarget
+    dailyTarget,
+    dietKey,
+    dayIndex
 ) {
+
+    const snack =
+        snackPools[dietKey][
+            dayIndex % snackPools[dietKey].length
+        ];
 
     return {
 
-        breakfast:
-            calculateAdjustedMeal(
-                day.breakfast,
-                dailyTarget *
-                    calorieDistribution
-                        .breakfast
-            ),
+        breakfast: calculateAdjustedMeal(
+            day.breakfast,
+            dailyTarget * calorieDistribution.breakfast
+        ),
 
-        lunch:
-            calculateAdjustedMeal(
-                day.lunch,
-                dailyTarget *
-                    calorieDistribution
-                        .lunch
-            ),
+        lunch: calculateAdjustedMeal(
+            day.lunch,
+            dailyTarget * calorieDistribution.lunch
+        ),
 
-        dinner:
-            calculateAdjustedMeal(
-                day.dinner,
-                dailyTarget *
-                    calorieDistribution
-                        .dinner
-            ),
+        dinner: calculateAdjustedMeal(
+            day.dinner,
+            dailyTarget * calorieDistribution.dinner
+        ),
 
-        snackCalories:
-            Math.round(
-                dailyTarget *
-                    calorieDistribution
-                        .snack
-            )
+        snack: calculateAdjustedMeal(
+            snack,
+            dailyTarget * calorieDistribution.snack
+        )
     };
 }
 
@@ -1582,12 +1615,17 @@ function renderDietMeals() {
 
     if (personalized) {
 
-        day =
-            buildPersonalizedDay(
-                day,
-                calculatedNutritionPlan
-                    .target
-            );
+        const dietKey =
+    calculatedNutritionPlan.goal === "gain"
+        ? "weightGain"
+        : "weightLoss";
+
+day = buildPersonalizedDay(
+    day,
+    calculatedNutritionPlan.target,
+    dietKey,
+    selectedDietDay
+);
     }
 
 
@@ -1625,7 +1663,13 @@ function renderDietMeals() {
         day.dinner,
         container
     );
-
+if (personalized && day.snack) {
+    createMealCard(
+        "Snack",
+        day.snack,
+        container
+    );
+}
 
     /*
      * Show reserved snack calories
@@ -1634,51 +1678,7 @@ function renderDietMeals() {
 
     if (personalized) {
 
-        const snackCard =
-            document.createElement(
-                "article"
-            );
-
-
-        snackCard.className =
-            "meal-card";
-
-
-        snackCard.innerHTML = `
-
-            <div class="meal-image">
-                🍎
-            </div>
-
-            <div class="meal-info">
-
-                <div class="meal-type">
-                    Snack
-                </div>
-
-                <div class="meal-name">
-                    Personalized Snack
-                </div>
-
-                <p class="meal-description">
-                    Snack calories reserved
-                    to complete your daily
-                    nutrition target.
-                </p>
-
-                <span class="calories">
-                    🔥
-                    ${day.snackCalories}
-                    kcal
-                </span>
-
-            </div>
-        `;
-
-
-        container.appendChild(
-            snackCard
-        );
+        
     }
 }
 
