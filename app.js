@@ -1568,7 +1568,132 @@ function buildPersonalizedDay(
     };
 }
 
+function createDailyNutritionSummary(
+    day,
+    dailyTarget,
+    container
+) {
+    const breakfastCalories =
+        day.breakfast.targetCalories ??
+        day.breakfast.calories;
 
+    const lunchCalories =
+        day.lunch.targetCalories ??
+        day.lunch.calories;
+
+    const dinnerCalories =
+        day.dinner.targetCalories ??
+        day.dinner.calories;
+
+    const snackCalories =
+        day.snack
+            ? (
+                day.snack.targetCalories ??
+                day.snack.calories
+            )
+            : 0;
+
+    const plannedCalories =
+        breakfastCalories +
+        lunchCalories +
+        dinnerCalories +
+        snackCalories;
+
+    const difference =
+        plannedCalories - dailyTarget;
+
+    const summary =
+        document.createElement("div");
+
+    summary.className =
+        "nutrition-summary";
+
+    summary.innerHTML = `
+        <div class="nutrition-summary-header">
+            <div>
+                <span class="summary-label">
+                    Daily Nutrition
+                </span>
+
+                <h3>
+                    Day ${selectedDietDay + 1}
+                </h3>
+            </div>
+
+            <div class="target-calories">
+                ${dailyTarget}
+                <small>kcal target</small>
+            </div>
+        </div>
+
+        <div class="nutrition-progress">
+            <div
+                class="nutrition-progress-bar"
+                style="width:
+                    ${Math.min(
+                        (plannedCalories / dailyTarget) * 100,
+                        100
+                    )}%"
+            ></div>
+        </div>
+
+        <div class="nutrition-total">
+
+            <div>
+                <span>Planned</span>
+                <strong>
+                    ${plannedCalories} kcal
+                </strong>
+            </div>
+
+            <div>
+                <span>Difference</span>
+                <strong>
+                    ${
+                        difference > 0
+                            ? "+"
+                            : ""
+                    }${difference} kcal
+                </strong>
+            </div>
+
+        </div>
+
+        <div class="meal-calorie-summary">
+
+            <div>
+                <span>Breakfast</span>
+                <strong>
+                    ${breakfastCalories}
+                </strong>
+            </div>
+
+            <div>
+                <span>Lunch</span>
+                <strong>
+                    ${lunchCalories}
+                </strong>
+            </div>
+
+            <div>
+                <span>Dinner</span>
+                <strong>
+                    ${dinnerCalories}
+                </strong>
+            </div>
+
+            <div>
+                <span>Snack</span>
+                <strong>
+                    ${snackCalories}
+                </strong>
+            </div>
+
+        </div>
+    `;
+
+    container.appendChild(summary);
+}
 /*
 |--------------------------------------------------------------------------
 | Render Diet Meals
@@ -1627,7 +1752,13 @@ day = buildPersonalizedDay(
     selectedDietDay
 );
     }
-
+if (personalized) {
+    createDailyNutritionSummary(
+        day,
+        calculatedNutritionPlan.target,
+        container
+    );
+}
 
     const title =
         document.getElementById(

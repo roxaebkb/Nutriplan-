@@ -887,3 +887,99 @@ button {
 .day-button.active strong {
     color: white;
 }
+.nutrition-summary {
+    background: white;
+    border: 1px solid #e7e7e7;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 22px;
+}
+
+.nutrition-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.summary-label {
+    color: #777;
+    font-size: 13px;
+}
+
+.nutrition-summary-header h3 {
+    margin: 4px 0 0;
+    font-size: 22px;
+}
+
+.target-calories {
+    color: #2f8f46;
+    font-size: 25px;
+    font-weight: 700;
+    text-align: right;
+}
+
+.target-calories small {
+    display: block;
+    color: #777;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.nutrition-progress {
+    height: 9px;
+    background: #eeeeee;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.nutrition-progress-bar {
+    height: 100%;
+    background: #2f8f46;
+    border-radius: inherit;
+}
+
+.nutrition-total {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.nutrition-total div {
+    background: #f7f8f7;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.nutrition-total span,
+.meal-calorie-summary span {
+    display: block;
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.meal-calorie-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.meal-calorie-summary div {
+    text-align: center;
+    padding: 10px 5px;
+    background: #f4faf5;
+    border-radius: 10px;
+}
+
+.meal-calorie-summary strong {
+    color: #2f8f46;
+}
+
+@media (max-width: 600px) {
+    .meal-calorie-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
