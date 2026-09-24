@@ -1223,14 +1223,6 @@ function showPage(pageId) {
         renderSavedMeals();
     }
 
-
-    if (
-        pageId ===
-        "ordersPage"
-    ) {
-
-        renderOrders();
-    }
 }
 
 
@@ -2122,47 +2114,6 @@ function removeSavedMeal(
     if (selectedDiet) {
         renderDietMeals();
     }
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| Orders
-|--------------------------------------------------------------------------
-*/
-
-function renderOrders() {
-
-    const container =
-        document.getElementById(
-            "ordersContainer"
-        );
-
-
-    if (!container) {
-        return;
-    }
-
-
-    container.innerHTML = `
-
-        <div class="empty-state">
-
-            <div class="empty-icon">
-                🛍️
-            </div>
-
-            <h3>
-                No orders yet
-            </h3>
-
-            <p>
-                Your meal orders
-                will appear here.
-            </p>
-
-        </div>
-    `;
 }
 
 
